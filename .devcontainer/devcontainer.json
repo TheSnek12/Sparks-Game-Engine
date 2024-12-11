@@ -11,6 +11,12 @@
         "vncPort": "5901"
     }
 },
+		"forwardPorts": [6080],
+	"portsAttributes": {
+  		"6080": {
+			"label": "desktop"
+ 		}
+	},
 
 	// Configure tool-specific properties.
 	"customizations": {
