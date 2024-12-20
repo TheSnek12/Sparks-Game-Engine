@@ -21,8 +21,10 @@ engine = library('Sparks-Game-Engine',
            )
 
 subdir('test')
-executable('Sparks-Game-Engine-Test',
+test('build sample project', executable('Sparks-Game-Engine-Test',
            sources: test_srcs,
            dependencies: dep,
            install : false
            ) 
+)
+
