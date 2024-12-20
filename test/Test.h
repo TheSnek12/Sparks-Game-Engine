@@ -1,6 +1,6 @@
 #include <Game.h>
 
-class someGame : Game {
+class someGame : sparks::Game {
 
 };
 

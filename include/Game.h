@@ -13,6 +13,7 @@ namespace sparks
 
     public:
         static Game *getInstance();
+        bool run();
 
         Game(/* args */);
         ~Game();

@@ -1,5 +1,8 @@
 #include <iostream>
 #include <cstdio>
+#include <chrono>
+#include <fstream>
+
 namespace logger{
 
 
@@ -10,26 +13,20 @@ namespace logger{
         LEVEL_ERROR = 2,
         LEVEL_FATAL = 3
     };
-    static _levelSettings _logLevels[4];
-    
+
     struct _levelSettings
     {
         bool enabled;
-        std::ostream &output;
+        void (*callback) (Level, const char*);
         _levelSettings();
     };
+
+    static _levelSettings _logLevels[4];
 
     void log(Level level, const char* str);
 
     void setEnabled(Level level, bool enabled);
 
-    bool setLevelStream(Level level, std::ostream stream);
-
-
-
-
-
-
+    void setCallback(Level level, void (*callback) (Level, const char*));
 
 };
-

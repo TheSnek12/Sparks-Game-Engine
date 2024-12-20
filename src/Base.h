@@ -3,6 +3,7 @@
 #include <cassert>
 #include <iostream>
 #include <chrono>
+#include <fstream>
 #include <cstdio>
 
 namespace sparks

@@ -1,13 +1,18 @@
 #include "include/Game.h"
+#include "Logger/Logger.h"
 using namespace sparks;
-
+using namespace logger;
 int main(int argc, char const *argv[])
 {
-    std::freopen("log.txt", "w", stderr);
+
+    log(LEVEL_LOG, "waawawwa");
+    log(LEVEL_WARN, "waawawwa");
+    log(LEVEL_ERROR, "waawawwa");
+    log(LEVEL_FATAL, "waawawwa");
 
     Game* instance = Game::getInstance();
     assert(instance != nullptr);
-    LOG("Hello World");
+
     
     return 0;
 }
