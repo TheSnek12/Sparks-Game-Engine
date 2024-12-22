@@ -35,6 +35,8 @@ jobs:
           python-version: '3.x'
       - name: Install dependencies
         run: python -m pip install meson==${{ matrix.meson_version }} ninja
+      - name: install GLFW
+        run: sudo apt-get install glfw
       - name: Configure Project
         run: meson setup builddir/
         env:
