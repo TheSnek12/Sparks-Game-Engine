@@ -45,9 +45,10 @@ jobs:
     # Packages to install with brew cask on macOS
           brew-cask:  glfw # optional, default is 
     # Packages to install with apt on Linux
-          apt: glfw # optional, default is 
+          apt: libglfw3-dev
+    # optional, default is 
     # Packages to install with choco on Windows
-          choco: glfw # optional, default is 
+          choco: glfw3 # optional, default is 
           
       - name: Configure Project
         run: meson setup builddir/
