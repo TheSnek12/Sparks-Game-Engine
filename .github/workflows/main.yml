@@ -35,8 +35,20 @@ jobs:
           python-version: '3.x'
       - name: Install dependencies
         run: python -m pip install meson==${{ matrix.meson_version }} ninja
-      - name: install GLFW
-        run: sudo apt-get install glfw
+      - name: Install Package
+  # You may pin to the exact commit or the version.
+  # uses: ConorMacBride/install-package@3e7ad059e07782ee54fa35f827df52aae0626f30
+        uses: ConorMacBride/install-package@v1.1.0
+        with:
+    # Packages to install with brew on macOS
+          brew: glfw #optional, default is 
+    # Packages to install with brew cask on macOS
+          brew-cask:  glfw # optional, default is 
+    # Packages to install with apt on Linux
+          apt: glfw # optional, default is 
+    # Packages to install with choco on Windows
+          choco: glfw # optional, default is 
+          
       - name: Configure Project
         run: meson setup builddir/
         env:
