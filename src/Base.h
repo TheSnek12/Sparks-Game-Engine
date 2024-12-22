@@ -5,10 +5,11 @@
 #include <chrono>
 #include <fstream>
 #include <cstdio>
+#include <GLFW/glfw3.h>
+#include "Logger/Logger.h"
 
 namespace sparks
 {
-#define LOG(s) std::clog << "[" << std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::system_clock::now().time_since_epoch()).count() << "]: " << s << std::endl;
 }
 
 #endif

@@ -1,3 +1,6 @@
+#ifndef HLOGGER
+#define HLOGGER
+
 #include <iostream>
 #include <cstdio>
 #include <chrono>
@@ -30,3 +33,4 @@ namespace logger{
     void setCallback(Level level, void (*callback) (Level, const char*));
 
 };
+#endif
