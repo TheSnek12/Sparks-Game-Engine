@@ -32,3 +32,4 @@
 *.app
 
 log.txt
+.vscode/settings.json
