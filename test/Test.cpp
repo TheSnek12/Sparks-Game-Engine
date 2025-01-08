@@ -7,6 +7,6 @@ void someGame::update()
 }
 
 void someGame::init(){
-    setGeometry(200, 200);
+    setGeometry(500, 500);
     setName("Sparks Game Engine Test");
 }

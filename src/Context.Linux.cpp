@@ -11,8 +11,8 @@ namespace sparks {
             logger::log(logger::LEVEL_FATAL, "Failed to initalize GLFW library!");
             return false;
         }
-
-        _window = glfwCreateWindow(Game::getInstance()->getWidth(), Game::getInstance()->getHeight(), Game::getInstance()->getName(), glfwGetPrimaryMonitor(), nullptr);
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+        _window = glfwCreateWindow(Game::getInstance()->getWidth(), Game::getInstance()->getHeight(), Game::getInstance()->getName(), nullptr, nullptr);
         if (!_window){
             
             const char *e;

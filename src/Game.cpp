@@ -14,9 +14,9 @@ namespace sparks
             logger::log(logger::LEVEL_WARN, "No name set within init(), using default");
             setName("Untitled");
         }
-        if (_width >= 0 || _height >= 0){
-            logger::log(logger::LEVEL_WARN, "No or invalid geometry set, both width and height must be <0. Using default 200x200");
-            setGeometry(1, 1);
+        if (_width <= 0 || _height <= 0){
+            logger::log(logger::LEVEL_WARN, "No or invalid geometry set, both width and height must be >0. Using default 200x200");
+            setGeometry(200, 200);
         }
         return true;
     }
