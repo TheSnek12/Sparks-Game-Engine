@@ -1,3 +1,5 @@
 headers = files(
-    'Game.h'
+    'Game.h',
+    'Logger/Logger.h'
 )
+

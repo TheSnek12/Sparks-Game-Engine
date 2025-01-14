@@ -4,28 +4,24 @@ namespace sparks
 {
 
 
-    bool Context::initRenderer() {
-        return true;
-    }
-    bool Context::destroyRenderer() {
-        return true;
-    }
 
-
-
-    bool Context::init(){
+    bool Context::init()
+    {
         logger::log(logger::LEVEL_LOG, "Initializing..");
-        if (!_game->run()){
+        if (!_game->run())
+        {
             logger::log(logger::LEVEL_FATAL, "Game failed to launch");
             return false;
         }
-        if (!initWindow()) {
+        if (!_window->initWindow())
+        {
             logger::log(logger::LEVEL_FATAL, "Failed to initialize window");
             return false;
         }
-        if (!initRenderer()) {
+        if (!_renderer->initRenderer())
+        {
             logger::log(logger::LEVEL_FATAL, "Failed to initialize renderer");
-            return false;    
+            return false;
         }
 
         logger::log(logger::LEVEL_LOG, "Finished initialization");
@@ -33,72 +29,119 @@ namespace sparks
         return true;
     }
 
-    
-    
-    bool Context::cleanup(){
+    bool Context::cleanup()
+    {
 
         logger::log(logger::LEVEL_LOG, "Shutting down engine..");
-        if (!destroyRenderer()) {
+        if (!_renderer->destroyRenderer())
+        {
             logger::log(logger::LEVEL_ERROR, "Failed to cleanly destroy renderer");
             return false;
         }
-        if (!destroyWindow()) {
+        if (!_window->destroyWindow())
+        {
             logger::log(logger::LEVEL_ERROR, "Failed to cleanly destroy window");
-            return false;    
+            return false;
         }
         return true;
     }
 
-    void Context::messageLoop(){
-        //do some preparations
-        if (_state == PREINIT){
-            if (!init()){
+    void Context::messageLoop()
+    {
+        // do some preparations
+        if (_state == PREINIT)
+        {
+        
+            if (!init())
+            {
                 logger::log(logger::LEVEL_FATAL, "Failed to initialize context");
                 throw std::runtime_error("Init failed!");
             }
             _state = RUNNING;
         }
-        while (_state == RUNNING){
-            pollWindowEvents();
+        while (_state == RUNNING)
+        {
+            _window->pollWindowEvents();
             _game->frame();
+            _renderer->drawFrame();
         }
-        if (_state == ABORTING){
+        if (_state == ABORTING)
+        {
             logger::log(logger::LEVEL_FATAL, "Received ABORT from game");
             throw std::runtime_error("Game aborted unexpectedly!");
         }
 
-        if(!cleanup()){
+        if (!cleanup())
+        {
             logger::log(logger::LEVEL_ERROR, "Errors occurred during clean up!");
         }
-
-
-
-
     }
 
-    Context::Context():
-    _state(PREINIT), _game(Game::getInstance())
+    Context::Context() : _state(PREINIT), _game(Game::getInstance())
     {
-        assert(_instance == nullptr);
-        _instance = this;
-        messageLoop();
+
+        if (WINDOWTYPE == GLFW)
+        {
+
+            GWindow window = GWindow(this);
+            _window = &window;
+        }
+
+        selectEngine(OpenGL);
         
 
+        assert(_instance == nullptr);
+        _instance = this;
+
+        messageLoop();
     }
 
-    void Context::abort(){
+    void Context::selectEngine(Renderer renderer){
+        s_Renderer::Platform rplatform;
+
+        switch (PLATFORM)
+        {
+        case LINUX:
+            rplatform = s_Renderer::LINUX;
+            break;
+        case WINDOWS:
+            rplatform = s_Renderer::WINDOWS;
+            break;
+        case MACOS:
+            rplatform = s_Renderer::MACOS;
+            break;
+        default:
+            rplatform = s_Renderer::LINUX;
+            break;
+        } 
+
+            if (_renderer != nullptr){
+            if (_renderer->destroyRenderer()){
+                logger::log(logger::LEVEL_ERROR, "Failed to cleanly shut down old engine");
+            }
+        }
+        switch (renderer)
+        {
+        case OpenGL:
+            static OpenGLRenderEngine renderer = OpenGLRenderEngine(rplatform, _game->getWidth(), _game->getHeight(), (GLADloadproc)_window->getGLProcAddr());
+            _renderer = &renderer;
+
+            break;
+        }
+    }
+
+    void Context::abort()
+    {
         _state = ABORTING;
     }
-    void Context::close(){
+    void Context::close()
+    {
         _state = CLOSING;
     }
 
-    Context * Context::getContext(){
+    Context *Context::getContext()
+    {
         return _instance;
     }
 
-    Context::~Context(){
-        _instance = nullptr;
-    }
-    
 } // namespace sparks

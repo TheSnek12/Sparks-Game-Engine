@@ -16,7 +16,9 @@ subdir('src')
 engine = library('Sparks-Game-Engine',
            sources: build_srcs,
            install : true,
-           dependencies: deps
+           dependencies: deps,
+           include_directories: include
+           
 
            )
 

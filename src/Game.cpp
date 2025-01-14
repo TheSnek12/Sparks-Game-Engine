@@ -1,4 +1,4 @@
-#include "include/Game.h"
+#include <Game.h>
 namespace sparks
 {
     Game::Game()
@@ -8,21 +8,24 @@ namespace sparks
         _instance = this;
     }
 
-    bool Game::run(){
+    bool Game::run()
+    {
         init();
-        if (!_name) {
+        if (!_name)
+        {
             logger::log(logger::LEVEL_WARN, "No name set within init(), using default");
             setName("Untitled");
         }
-        if (_width <= 0 || _height <= 0){
+        if (_width <= 0 || _height <= 0)
+        {
             logger::log(logger::LEVEL_WARN, "No or invalid geometry set, both width and height must be >0. Using default 200x200");
             setGeometry(200, 200);
         }
         return true;
     }
 
-    void Game::init(){
-
+    void Game::init()
+    {
     }
 
     Game::~Game()
@@ -35,43 +38,52 @@ namespace sparks
         return _instance;
     }
 
-    void Game::update(){
-
+    void Game::update()
+    {
     }
 
-    void Game::setName(const char * name){
+    void Game::setName(const char *name)
+    {
         _name = name;
     }
-    const char * Game::getName(){
+    const char *Game::getName()
+    {
         return _name;
     }
 
-    void Game::frame(){
+    void Game::frame()
+    {
         update();
-
     }
 
-    u_int16_t Game::getWidth(){
+    u_int16_t Game::getWidth()
+    {
         return _width;
     }
-    u_int16_t Game::getHeight(){
+    u_int16_t Game::getHeight()
+    {
         return _height;
     }
-    void Game::setGeometry(u_int16_t w, u_int16_t h){
+    void Game::setGeometry(uint16_t w, uint16_t h)
+    {
         _width = w;
         _height = h;
-    } 
+    }
 
-    void Game::handleAbort(){
+    void Game::handleAbort()
+    {
         Context::getContext()->abort();
     }
-    void Game::handleClose(){
+    void Game::handleClose()
+    {
         Context::getContext()->close();
     }
-    void Game::abort(){
+    void Game::abort()
+    {
         handleAbort();
     }
-    void Game::close(){
+    void Game::close()
+    {
         handleClose();
     }
 
