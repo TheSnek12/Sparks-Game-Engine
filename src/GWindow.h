@@ -1,5 +1,4 @@
-#ifndef HGWINDOW
-#define HGWINDOW
+#pragma once
 #include "Window.h"
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
@@ -23,4 +22,3 @@ namespace sparks
         GLFWwindow *_window;
     };
 } // namespace sparks
-#endif

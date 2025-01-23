@@ -54,6 +54,8 @@ namespace sparks
     void Game::frame()
     {
         update();
+        
+
     }
 
     u_int16_t Game::getWidth()

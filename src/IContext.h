@@ -1,6 +1,4 @@
-#ifndef HICONTEXT
-#define HICONTEXT
-
+#pragma once
 namespace sparks
 
 {
@@ -18,4 +16,3 @@ namespace sparks
         virtual void abort() = 0;
     };
 } // namespace sparks
-#endif

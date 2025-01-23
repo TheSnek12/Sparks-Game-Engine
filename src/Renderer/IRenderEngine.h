@@ -1,3 +1,4 @@
+#include "Renderer.h"
 namespace s_Renderer
 {
     class IRenderEngine {
@@ -6,6 +7,7 @@ namespace s_Renderer
         virtual bool destroyRenderer() = 0;
         virtual void addObjectToQueue() = 0;
         virtual void drawFrame() = 0;
+        virtual Renderer rendererType() = 0;
 
 
     };

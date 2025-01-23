@@ -1,4 +1,6 @@
+#include "../Renderer.h"
 #include "OpenGLRenderEngine.h"
+
 namespace s_Renderer
 {
     OpenGLRenderEngine::OpenGLRenderEngine(Platform platform, uint16_t width, uint16_t height, GLADloadproc procAddr) :
@@ -37,16 +39,20 @@ namespace s_Renderer
         glClearColor(1, 1, 1, 1);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        OpenGLMesh gmesh(nullptr, 12, nullptr, 12);
+
+
         return true;
 
     }
 
     void OpenGLRenderEngine::addObjectToQueue(){
-
+        
     }
 
     void OpenGLRenderEngine::drawFrame(){
         glClear(GL_COLOR_BUFFER_BIT);
+
 
     }
 
@@ -54,7 +60,11 @@ namespace s_Renderer
     bool OpenGLRenderEngine::destroyRenderer(){
         return true;
     }
+    
 
+    Renderer OpenGLRenderEngine::rendererType(){
+        return OpenGL;
+    }
 
 
 

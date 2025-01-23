@@ -63,6 +63,13 @@ namespace sparks
         {
             _window->pollWindowEvents();
             _game->frame();
+
+
+
+
+
+
+
             _renderer->drawFrame();
         }
         if (_state == ABORTING)
@@ -76,6 +83,8 @@ namespace sparks
             logger::log(logger::LEVEL_ERROR, "Errors occurred during clean up!");
         }
     }
+
+
 
     Context::Context() : _state(PREINIT), _game(Game::getInstance())
     {

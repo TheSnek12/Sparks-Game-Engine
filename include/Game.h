@@ -1,6 +1,4 @@
-#ifndef HGAME
-#define HGAME
-
+#pragma once
 #include "src/Base.h"
 #include "src/Context.h"
 // singleton class representing the currently running game.
@@ -39,4 +37,3 @@ namespace sparks
 
     };
 }
-#endif

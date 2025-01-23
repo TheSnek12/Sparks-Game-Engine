@@ -1,6 +1,4 @@
-#ifndef HWINDOW
-#define HWINDOW
-
+#pragma once
 #include <Game.h>
 #include "IContext.h"
 #include "Base.h"
@@ -26,4 +24,3 @@ namespace sparks
         IContext *_context;
     };
 } // namespace sparks
-#endif

@@ -55,6 +55,6 @@ namespace sparks
     }
 
     Window::procAddr GWindow::getVKProcAddr(){
-
+        return nullptr;
     }
 }

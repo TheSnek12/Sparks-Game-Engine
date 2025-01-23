@@ -3,7 +3,9 @@ logger_srcs = files(
     'Logger/Logger.cpp'
 )
 renderer_srcs = files(
-    'Renderer/OpenGLRenderEngine.cpp',
+    'Renderer/OpenGL/OpenGLRenderEngine.cpp',
+    'Renderer/OpenGL/OpenGLMesh.cpp',
+    'Renderer/Mesh.cpp',
     'ThirdParty/glad/glad.c'
 )
 engine_srcs = files(
@@ -13,6 +15,9 @@ engine_srcs = files(
     #'Context.Linux.cpp',
     'main.cpp'
 )
-deps = dependency('glfw3')
+deps = [
+    dependency('glfw3'),
+    dependency('assimp')
+]
 
 build_srcs = logger_srcs + renderer_srcs + engine_srcs

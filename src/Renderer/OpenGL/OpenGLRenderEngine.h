@@ -1,17 +1,13 @@
+#pragma once
 #include <stdint.h>
 #include <Logger/Logger.h>
 #include <glad/glad.h>
-#include "IRenderEngine.h"
+#include "../IRenderEngine.h"
+#include "OpenGLMesh.h"
 
 namespace s_Renderer
 {
-    enum Platform{
-        LINUX,
-        WINDOWS,
-        MACOS,
-//      MOBILE
 
-    };
 
     class OpenGLRenderEngine : public IRenderEngine
     {
@@ -27,6 +23,7 @@ namespace s_Renderer
         bool destroyRenderer() override;
         void addObjectToQueue() override;
         void drawFrame() override;
+        Renderer rendererType() override;
 
 
 

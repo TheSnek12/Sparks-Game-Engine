@@ -1,8 +1,7 @@
-#ifndef HCONTEXT
-#define HCONTEXT
+#pragma once
 #include <Game.h>
 #include "IContext.h"
-#include "Renderer/OpenGLRenderEngine.h"
+#include "Renderer/OpenGL/OpenGLRenderEngine.h"
 #include "GWindow.h"
 
 using namespace s_Renderer;
@@ -48,4 +47,3 @@ namespace sparks
     };
 
 } // namespace sparks
-#endif
