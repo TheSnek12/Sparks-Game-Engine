@@ -12,9 +12,11 @@ namespace s_Renderer
         
         /* data */
     public:
-        OpenGLMesh(Vertex * vertices, size_t vert_size, uint16_t* indicies, size_t indic_size);
+        OpenGLMesh(std::vector<Vertex> vertices, std::vector<uint> indicies);
         ~OpenGLMesh();
         void bind() override;
+        
     };
+
     
 } // namespace s_Renderer

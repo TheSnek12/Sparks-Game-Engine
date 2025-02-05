@@ -6,6 +6,9 @@ namespace s_Renderer
     {
     }
     
+    void Texture::bind(){
+
+    }
     Texture::~Texture()
     {
     }

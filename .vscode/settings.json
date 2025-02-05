@@ -128,5 +128,6 @@
     "cinttypes": "cpp",
     "typeinfo": "cpp",
     "variant": "cpp"
-  }
+  },
+  "cmake.sourceDirectory": "/home/Snek/projects/C++/Sparks-Game-Engine/builddir/meson-private/__CMake_compiler_info__"
 }

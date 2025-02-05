@@ -2,31 +2,40 @@
 #include <vector>
 #include <stdint.h>
 #include <cstddef>
+#include <vector>
+#include "Renderer.h"
 namespace s_Renderer
 {
-    typedef float vec3[3];
+    struct vec3{
+        float x;
+        float y;
+        float z;
+        vec3(float x, float y, float z) : x(x), y(y), z(z){}
+    };
     struct Vertex
     {
         vec3 pos;
         vec3 normal;
+        Vertex(vec3 pos, vec3 normal) : pos(pos), normal(normal){};
     };
     
 
     class Mesh
     {
         private:
-        Vertex* _vertices;
-        size_t _vert_size;
-        uint16_t* _indicies;
-        size_t _indic_size;
-
-        protected:
-        Vertex* getVertices(size_t*size);
-        uint16_t* getIndicies(size_t*size);
-        Mesh(Vertex * vertices, size_t _vert_size, uint16_t* _indicies, size_t _indic_size);
+        std::vector<Vertex> _vertices;
+        std::vector<uint> _indicies;
 
         public:
+        Vertex* getVertices(size_t*size);
+        uint* getIndicies(size_t*size);
+        
+
+        public:
+        Mesh();
+        Mesh(std::vector<Vertex> vertices, std::vector<uint> _indicies);
         virtual void bind();
+        size_t getIndicSize();
 
     };
 } // namespace sparks

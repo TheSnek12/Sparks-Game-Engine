@@ -7,6 +7,7 @@
 #include <fstream>
 #include <cstdio>
 #include <Logger/Logger.h>
+#include <glm/vec3.hpp>
 
 namespace sparks
 {

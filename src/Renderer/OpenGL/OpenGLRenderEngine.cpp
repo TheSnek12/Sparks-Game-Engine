@@ -35,24 +35,39 @@ namespace s_Renderer
         logger::log(logger::LEVEL_LOG, "Successfully initalized OpenGL renderer!");
 
         glViewport(0, 0, _width, _height);
-
+        
         glClearColor(1, 1, 1, 1);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        OpenGLMesh gmesh(nullptr, 12, nullptr, 12);
+        
 
 
         return true;
 
     }
 
-    void OpenGLRenderEngine::addObjectToQueue(){
-        
+    void OpenGLRenderEngine::addObjectToQueue(RenderObject renderObject){
+        _objectQueue.push_back(renderObject);
     }
 
     void OpenGLRenderEngine::drawFrame(){
         glClear(GL_COLOR_BUFFER_BIT);
 
+        for (RenderObject obj : _objectQueue){
+            if (obj.shader->isCompiled()){
+                obj.mesh->bind();
+                obj.shader->bind();
+                for (Texture tex : obj.textures){
+                    tex.bind();
+                }
+
+                            
+                glDrawElements(GL_TRIANGLES, obj.mesh->getIndicSize(), GL_UNSIGNED_INT, (void*)0);
+        
+                
+            }
+        }
+        
 
     }
 

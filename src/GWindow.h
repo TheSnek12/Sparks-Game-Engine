@@ -12,10 +12,11 @@ namespace sparks
         bool initWindow() override;
         bool destroyWindow() override;
         void pollWindowEvents() override;
+        bool prepareForRenderer(s_Renderer::Renderer renderEngine) override;
         procAddr getGLProcAddr() override;
         procAddr getVKProcAddr() override;
 
-        GWindow(IContext *context);
+        GWindow(IContext *context, uint16_t width, uint16_t height, const char* title);
 
     private:
 

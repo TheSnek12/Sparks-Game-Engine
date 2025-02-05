@@ -1,6 +1,8 @@
 #include <Game.h>
 namespace sparks
 {
+
+
     Game::Game()
     {
         assert(_instance == nullptr);
@@ -55,6 +57,9 @@ namespace sparks
     {
         update();
         
+        
+
+
 
     }
 

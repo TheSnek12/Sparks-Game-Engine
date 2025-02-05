@@ -3,14 +3,16 @@
 namespace sparks
 {
 
-
-
     bool Context::init()
     {
         logger::log(logger::LEVEL_LOG, "Initializing..");
         if (!_game->run())
         {
             logger::log(logger::LEVEL_FATAL, "Game failed to launch");
+            return false;
+        }
+        if (!_window->prepareForRenderer(s_Renderer::OpenGL)){
+            logger::log(logger::LEVEL_FATAL, "Failed while preparing window for renderer!");
             return false;
         }
         if (!_window->initWindow())
@@ -51,7 +53,7 @@ namespace sparks
         // do some preparations
         if (_state == PREINIT)
         {
-        
+
             if (!init())
             {
                 logger::log(logger::LEVEL_FATAL, "Failed to initialize context");
@@ -61,16 +63,37 @@ namespace sparks
         }
         while (_state == RUNNING)
         {
-            _window->pollWindowEvents();
             _game->frame();
 
+            std::vector<Vertex> vertices =
+                {    
+                 Vertex(vec3(-1.0f, -1.0f , 0.0f), vec3(1.0f, 1.0f, 1.0f)),
+                 Vertex(vec3(0.0f, -1.0f, 0.0f), vec3(1.0f, 1.0f, 1.0f)),
+                 Vertex(vec3(0.0f, 0.0f, 0.0f), vec3(1.0f, 1.0f, 1.0f)),
+                };
 
+            // Indices for vertices order
+            std::vector<uint> indices =
+                {
+                    0, 1, 2,
+                };
 
+            RenderObject obj{};
 
+ 
+            OpenGLMesh mesh = OpenGLMesh(vertices, indices);
 
+            OpenGLShader shader = OpenGLShader("/home/Snek/projects/C++/Sparks-Game-Engine/res/default_shaders/default.vert", "/home/Snek/projects/C++/Sparks-Game-Engine/res/default_shaders/default.frag");
 
+            obj.mesh = &mesh;
+            obj.shader = &shader;
+            
+            _renderer->addObjectToQueue(obj);
+            
 
             _renderer->drawFrame();
+
+            _window->pollWindowEvents();
         }
         if (_state == ABORTING)
         {
@@ -84,20 +107,17 @@ namespace sparks
         }
     }
 
-
-
     Context::Context() : _state(PREINIT), _game(Game::getInstance())
     {
 
         if (WINDOWTYPE == GLFW)
         {
 
-            GWindow window = GWindow(this);
+            static GWindow window = GWindow(this, Game::getInstance()->getWidth(), Game::getInstance()->getHeight(), Game::getInstance()->getName());
             _window = &window;
         }
 
         selectEngine(OpenGL);
-        
 
         assert(_instance == nullptr);
         _instance = this;
@@ -105,7 +125,8 @@ namespace sparks
         messageLoop();
     }
 
-    void Context::selectEngine(Renderer renderer){
+    void Context::selectEngine(Renderer renderer)
+    {
         s_Renderer::Platform rplatform;
 
         switch (PLATFORM)
@@ -122,10 +143,12 @@ namespace sparks
         default:
             rplatform = s_Renderer::LINUX;
             break;
-        } 
+        }
 
-            if (_renderer != nullptr){
-            if (_renderer->destroyRenderer()){
+        if (_renderer != nullptr)
+        {
+            if (_renderer->destroyRenderer())
+            {
                 logger::log(logger::LEVEL_ERROR, "Failed to cleanly shut down old engine");
             }
         }

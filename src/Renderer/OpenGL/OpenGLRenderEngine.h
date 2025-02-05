@@ -3,7 +3,6 @@
 #include <Logger/Logger.h>
 #include <glad/glad.h>
 #include "../IRenderEngine.h"
-#include "OpenGLMesh.h"
 
 namespace s_Renderer
 {
@@ -15,13 +14,14 @@ namespace s_Renderer
         Platform _platform;
         uint16_t _width;
         uint16_t _height;
+        std::vector<RenderObject> _objectQueue;
 
         GLADloadproc _procAddr;
         
     public:
         bool initRenderer() override;
         bool destroyRenderer() override;
-        void addObjectToQueue() override;
+        void addObjectToQueue(RenderObject renderObject) override;
         void drawFrame() override;
         Renderer rendererType() override;
 

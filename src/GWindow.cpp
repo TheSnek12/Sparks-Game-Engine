@@ -3,7 +3,8 @@
 namespace sparks
 {
 
-    GWindow::GWindow(IContext *context) : Window(context) {}
+    GWindow::GWindow(IContext *context, uint16_t width, uint16_t height, const char* title) :
+    Window(context, width, height, title) {}
     bool GWindow::initWindow()
     {
         if (!glfwInit())
@@ -16,7 +17,7 @@ namespace sparks
             return false;
         }
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-        _window = glfwCreateWindow(Game::getInstance()->getWidth(), Game::getInstance()->getHeight(), Game::getInstance()->getName(), nullptr, nullptr);
+        _window = glfwCreateWindow(width, height, title, nullptr, nullptr);
         if (!_window)
         {
 
@@ -41,13 +42,30 @@ namespace sparks
 
     void GWindow::pollWindowEvents()
     {
-        glfwPollEvents();
-
         glfwSwapBuffers(_window);
+        glfwPollEvents();
         if (glfwWindowShouldClose(_window))
         {
             _context->close();
         }
+    }
+
+    bool GWindow::prepareForRenderer(s_Renderer::Renderer renderEngine)
+    {
+        switch (renderEngine)
+        {
+        case OpenGL:
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+            break;
+        
+        default:
+            return false;
+            break;
+        }
+
+        return true;
     }
 
     Window::procAddr GWindow::getGLProcAddr(){

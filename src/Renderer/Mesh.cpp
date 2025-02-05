@@ -1,23 +1,37 @@
 #include "Mesh.h"
 namespace s_Renderer{
 
-    Mesh::Mesh(Vertex * vertices, size_t vert_size, uint16_t* indicies, size_t indic_size):
-    _vertices(vertices), _vert_size(vert_size), _indicies(indicies), _indic_size(indic_size)
+    Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint> indicies):
+   // _vertices(vertices), _indicies(indicies) 
+     _indicies(indicies) 
     {
         
     }
 
     Vertex* Mesh::getVertices(size_t*size){
-        (*size) = _vert_size;
-        return _vertices;
+        if (size != nullptr){
+            (*size) = _vertices.size();
+        }
+        return _vertices.data();
         
     }
-    uint16_t* Mesh::getIndicies(size_t*size){
-        (*size) = _indic_size;
-        return _indicies;
+    uint* Mesh::getIndicies(size_t*size){
+        if (size != nullptr){
+
+            (*size) = _indicies.size();
+        }
+        return _indicies.data();
+    }
+
+    size_t Mesh::getIndicSize(){
+        return _indicies.size();
     }
 
     void Mesh::bind(){
+
+    }
+    Mesh::Mesh():
+    _vertices(std::vector<Vertex>()), _indicies(std::vector<uint>()){
 
     }
 

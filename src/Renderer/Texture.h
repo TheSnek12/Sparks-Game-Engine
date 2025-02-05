@@ -7,6 +7,7 @@ namespace s_Renderer
         /* data */
     public:
         Texture(/* args */);
+        void bind();
         ~Texture();
     };
     
