@@ -15,6 +15,8 @@ engine_srcs = files(
     'GWindow.cpp',
     'Window.cpp',
     'Game.cpp',
+    'Scene.cpp',
+    'GameObject.cpp',
     'Context.cpp',
     #'Context.Linux.cpp',
     'main.cpp'

@@ -1,12 +1,14 @@
 #pragma once
 #include "src/Base.h"
 #include "src/Context.h"
+#include "Scene.h"
 
 
 // singleton class representing the currently running game.
 namespace sparks
 {
 
+    class Scene;
     class Context;
     class Game
     {
@@ -16,6 +18,7 @@ namespace sparks
         const char * _name = "Untitled";
         void handleClose();
         void handleAbort();
+        Scene* activeScene;
         uint16_t _width = 800;
         uint16_t _height = 800;
 
@@ -27,6 +30,7 @@ namespace sparks
         static Game *getInstance();
         bool run();
         void frame();
+        void loadScene(Scene* scene);
         const char * getName();
         Game(/* args */);
         ~Game();

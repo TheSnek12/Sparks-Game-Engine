@@ -2,7 +2,6 @@
 
 namespace sparks
 {
-
     bool Context::init()
     {
         logger::log(logger::LEVEL_LOG, "Initializing..");
@@ -11,7 +10,8 @@ namespace sparks
             logger::log(logger::LEVEL_FATAL, "Game failed to launch");
             return false;
         }
-        if (!_window->prepareForRenderer(s_Renderer::OpenGL)){
+        if (!_window->prepareForRenderer(s_Renderer::OpenGL))
+        {
             logger::log(logger::LEVEL_FATAL, "Failed while preparing window for renderer!");
             return false;
         }
@@ -64,32 +64,6 @@ namespace sparks
         while (_state == RUNNING)
         {
             _game->frame();
-
-            std::vector<Vertex> vertices =
-                {    
-                 Vertex(vec3(-1.0f, -1.0f , 0.0f), vec3(1.0f, 1.0f, 1.0f)),
-                 Vertex(vec3(0.0f, -1.0f, 0.0f), vec3(1.0f, 1.0f, 1.0f)),
-                 Vertex(vec3(0.0f, 0.0f, 0.0f), vec3(1.0f, 1.0f, 1.0f)),
-                };
-
-            // Indices for vertices order
-            std::vector<uint> indices =
-                {
-                    0, 1, 2,
-                };
-
-            RenderObject obj{};
-
- 
-            OpenGLMesh mesh = OpenGLMesh(vertices, indices);
-
-            OpenGLShader shader = OpenGLShader("/home/Snek/projects/C++/Sparks-Game-Engine/res/default_shaders/default.vert", "/home/Snek/projects/C++/Sparks-Game-Engine/res/default_shaders/default.frag");
-
-            obj.mesh = &mesh;
-            obj.shader = &shader;
-            
-            _renderer->addObjectToQueue(obj);
-            
 
             _renderer->drawFrame();
 
