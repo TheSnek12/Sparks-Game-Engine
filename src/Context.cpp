@@ -68,8 +68,8 @@ namespace sparks
             std::vector<Vertex> vertices =
                 {    
                  Vertex(vec3(-1.0f, -1.0f , 0.0f), vec3(1.0f, 1.0f, 1.0f)),
-                 Vertex(vec3(0.0f, -1.0f, 0.0f), vec3(1.0f, 1.0f, 1.0f)),
-                 Vertex(vec3(0.0f, 0.0f, 0.0f), vec3(1.0f, 1.0f, 1.0f)),
+                 Vertex(vec3(1.0f, -1.0f, 0.0f), vec3(1.0f, 1.0f, 1.0f)),
+                 Vertex(vec3(1.0f, 1.0f, 0.0f), vec3(1.0f, 1.0f, 1.0f)),
                 };
 
             // Indices for vertices order
