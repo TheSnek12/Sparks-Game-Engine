@@ -57,10 +57,9 @@ namespace sparks
     {
         update();
         
-        
-
-
-
+    }
+    void Game::loadScene(Scene* scene){
+        activeScene = scene;
     }
 
     u_int16_t Game::getWidth()

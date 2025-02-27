@@ -1,4 +1,5 @@
 #include <Game.h>
+#include <Scene.h>
 
 class someGame : sparks::Game {
 

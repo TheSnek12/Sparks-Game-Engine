@@ -3,20 +3,16 @@
 #include <stdint.h>
 #include <cstddef>
 #include <vector>
+#include "Vec3.h"
 #include "Renderer.h"
 namespace s_Renderer
 {
-    struct vec3{
-        float x;
-        float y;
-        float z;
-        vec3(float x, float y, float z) : x(x), y(y), z(z){}
-    };
+
     struct Vertex
     {
-        vec3 pos;
-        vec3 normal;
-        Vertex(vec3 pos, vec3 normal) : pos(pos), normal(normal){};
+        Vec3 pos;
+        Vec3 normal;
+        Vertex(Vec3 pos, Vec3 normal) : pos(pos), normal(normal){};
     };
     
 
