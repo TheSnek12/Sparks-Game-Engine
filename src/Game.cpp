@@ -2,7 +2,6 @@
 namespace sparks
 {
 
-
     Game::Game()
     {
         assert(_instance == nullptr);
@@ -56,10 +55,15 @@ namespace sparks
     void Game::frame()
     {
         update();
-        
+        if (activeScene != NULL)
+        {
+            activeScene->update();
+        }
     }
-    void Game::loadScene(Scene* scene){
+    void Game::loadScene(Scene *scene)
+    {
         activeScene = scene;
+        scene->start();
     }
 
     u_int16_t Game::getWidth()
@@ -74,15 +78,29 @@ namespace sparks
     {
         _width = w;
         _height = h;
+        Context::getContext()->resize(w, h);
+        
     }
 
     void Game::handleAbort()
     {
+        delete activeScene;
         Context::getContext()->abort();
     }
     void Game::handleClose()
     {
+        delete activeScene;
+        activeScene = nullptr;
         Context::getContext()->close();
+    }
+    void Game::onMouseMove(double x, double y){
+
+    }
+    void Game::onKeyPress(Keys key){
+
+    }
+    void Game::onKeyRelease(Keys key){
+
     }
     void Game::abort()
     {
@@ -91,6 +109,10 @@ namespace sparks
     void Game::close()
     {
         handleClose();
+    }
+    void Game::exitPressed()
+    {
+        close();
     }
 
 }

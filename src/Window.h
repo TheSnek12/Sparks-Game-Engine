@@ -13,6 +13,7 @@ namespace sparks
         virtual bool prepareForRenderer(s_Renderer::Renderer renderEngine) = 0;
         virtual bool destroyWindow() = 0;
         virtual void pollWindowEvents() = 0;
+        virtual void resize(uint16_t width, uint16_t height) = 0;
 
         uint16_t width;
         uint16_t height;

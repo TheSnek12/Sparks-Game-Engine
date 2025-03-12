@@ -2,8 +2,8 @@
 namespace s_Renderer{
 
     Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint> indicies):
-   // _vertices(vertices), _indicies(indicies) 
-     _indicies(indicies) 
+    _vertices(vertices), _indicies(indicies) 
+   //  _indicies(indicies) 
     {
         
     }
@@ -26,6 +26,7 @@ namespace s_Renderer{
     size_t Mesh::getIndicSize(){
         return _indicies.size();
     }
+
 
     void Mesh::bind(){
 

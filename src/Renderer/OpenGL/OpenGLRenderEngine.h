@@ -8,23 +8,27 @@ namespace s_Renderer
 {
 
 
+
     class OpenGLRenderEngine : public IRenderEngine
     {
     private:
         Platform _platform;
         uint16_t _width;
         uint16_t _height;
-        std::vector<RenderObject> _objectQueue;
+        Cam camera;
+
+
+        std::vector<RenderObject*> _objectQueue;
 
         GLADloadproc _procAddr;
         
     public:
         bool initRenderer() override;
         bool destroyRenderer() override;
-        void addObjectToQueue(RenderObject renderObject) override;
+        void addObjectToQueue(RenderObject* renderObject) override;
         void drawFrame() override;
         Renderer rendererType() override;
-
+        void setCamera(Cam cam) override;
 
 
         OpenGLRenderEngine(Platform platform, uint16_t width, uint16_t height, GLADloadproc procAddr);

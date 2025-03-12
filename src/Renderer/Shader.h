@@ -18,7 +18,8 @@ namespace s_Renderer
         Shader(const char* vertex_file, const char* fragment_file);
         Shader();
         virtual void bind();
-        ~Shader();
+        virtual uint16_t getID();
+        virtual ~Shader() = default;
 
     };
 } // namespace s_Renderer

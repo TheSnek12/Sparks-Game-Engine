@@ -6,6 +6,7 @@ renderer_srcs = files(
     'Renderer/OpenGL/OpenGLRenderEngine.cpp',
     'Renderer/OpenGL/OpenGLMesh.cpp',
     'Renderer/OpenGL/OpenGLShader.cpp',
+    'Renderer/OpenGL/OpenGLTexture.cpp',
     'Renderer/Shader.cpp',
     'Renderer/Texture.cpp',
     'Renderer/Mesh.cpp',
@@ -13,6 +14,7 @@ renderer_srcs = files(
 )
 engine_srcs = files(
     'GWindow.cpp',
+    'Scriptables/RenderMesh.cpp',
     'Window.cpp',
     'Game.cpp',
     'Scene.cpp',

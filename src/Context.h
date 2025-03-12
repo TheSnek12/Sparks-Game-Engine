@@ -43,11 +43,16 @@ namespace sparks
 
     public:
         static Context *getContext();
+        void sendToRenderPool(s_Renderer::RenderObject* renderObj) override;
+        s_Renderer::Renderer engineType() override;
+        void setActiveCamera(s_Renderer::Cam cam) override;
         void close() override;
         void abort() override;
         void selectEngine(Renderer renderer) override;
+        void resize(uint16_t width, uint16_t height) override;
 
         Context();
     };
+    
 
 } // namespace sparks

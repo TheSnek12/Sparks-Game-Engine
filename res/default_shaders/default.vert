@@ -12,7 +12,9 @@ out vec3 crntPos;
 // Outputs the normal for the Fragment Shader
 out vec3 Normal;
 
-
+uniform mat4 model;
+uniform mat4 projection;
+uniform mat4 view;
 
 
 void main()
@@ -24,5 +26,5 @@ void main()
 
 	
 	// Outputs the positions/coordinates of all vertices
-	gl_Position = vec4(crntPos, 1.0);
+	gl_Position = projection*view*model*vec4(crntPos, 1.0) ;
 }

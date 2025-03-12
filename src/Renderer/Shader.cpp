@@ -26,6 +26,10 @@ namespace s_Renderer{
 
 	}
 
+	uint16_t Shader::getID(){
+		return 0;
+	}
+
 	bool Shader::isCompiled(){
 		return compiled;
 	}
@@ -34,7 +38,5 @@ namespace s_Renderer{
         
     }
 
-    Shader::~Shader(){
 
-    }
 }

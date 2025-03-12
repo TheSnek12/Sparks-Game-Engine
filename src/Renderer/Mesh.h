@@ -28,10 +28,14 @@ namespace s_Renderer
         
 
         public:
+        Vec3* pos;
+        float* roll;
+        Vec3* dir;
         Mesh();
         Mesh(std::vector<Vertex> vertices, std::vector<uint> _indicies);
         virtual void bind();
         size_t getIndicSize();
+        virtual ~Mesh() = default;
 
     };
 } // namespace sparks

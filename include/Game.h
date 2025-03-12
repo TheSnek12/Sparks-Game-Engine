@@ -9,7 +9,6 @@ namespace sparks
 {
 
     class Scene;
-    class Context;
     class Game
     {
     private:
@@ -27,13 +26,19 @@ namespace sparks
         u_int16_t getWidth();
         u_int16_t getHeight();
 
+        virtual void onKeyPress(Keys key);
+        virtual void onKeyRelease(Keys key);
+        virtual void onMouseMove(double x, double y);
         static Game *getInstance();
         bool run();
         void frame();
         void loadScene(Scene* scene);
         const char * getName();
+        virtual void exitPressed();
         Game(/* args */);
         ~Game();
+
+
     protected:    
         virtual void update();
         virtual void init();

@@ -14,11 +14,10 @@ namespace sparks
         sceneObjects.push_back(obj);
         obj->_sceneID = id;
         obj->parentScene = this;
-        return id;
+        
+        if (running) obj->init();
 
-        for (Scriptable* script : obj->scriptables){
-            script->onStart();
-        }       
+        return id;
 
     }
     
@@ -72,10 +71,23 @@ namespace sparks
     }
     void Scene::update(){
         for (GameObject *obj : sceneObjects){
-            for (Scriptable *script : obj->scriptables){
-                script->onTick();
-            }
+            obj->tick();
         }
     }
+    void Scene::start(){
+        for (GameObject *obj : sceneObjects){
+            obj->init();
+        }
+        
+        Context::getContext()->setActiveCamera(activeCamera->cam);
+        running = true;
+
+    }
+    Scene::~Scene(){
+        for (GameObject* obj: sceneObjects){
+            delete obj;
+        }
+    }
+
 
 } // namespace sparks

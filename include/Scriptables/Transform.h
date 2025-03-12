@@ -5,9 +5,16 @@
 namespace sparks
 {
     class Transform : public Scriptable {
+        
+
         public:
+        void onStart() override {};
+        void onTick() override {};
+        ~Transform() override{
+            
+        };
         Vec3 position;
-        Vec3 up;
-        Vec3 lookDir;
+        float roll;
+        Vec3 rotation;
     };
 } // namespace sparks

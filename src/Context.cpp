@@ -5,11 +5,7 @@ namespace sparks
     bool Context::init()
     {
         logger::log(logger::LEVEL_LOG, "Initializing..");
-        if (!_game->run())
-        {
-            logger::log(logger::LEVEL_FATAL, "Game failed to launch");
-            return false;
-        }
+
         if (!_window->prepareForRenderer(s_Renderer::OpenGL))
         {
             logger::log(logger::LEVEL_FATAL, "Failed while preparing window for renderer!");
@@ -25,6 +21,11 @@ namespace sparks
             logger::log(logger::LEVEL_FATAL, "Failed to initialize renderer");
             return false;
         }
+        if (!_game->run())
+        {
+            logger::log(logger::LEVEL_FATAL, "Game failed to launch");
+            return false;
+        }
 
         logger::log(logger::LEVEL_LOG, "Finished initialization");
 
@@ -35,6 +36,7 @@ namespace sparks
     {
 
         logger::log(logger::LEVEL_LOG, "Shutting down engine..");
+        
         if (!_renderer->destroyRenderer())
         {
             logger::log(logger::LEVEL_ERROR, "Failed to cleanly destroy renderer");
@@ -148,6 +150,21 @@ namespace sparks
     Context *Context::getContext()
     {
         return _instance;
+    }
+
+    s_Renderer::Renderer Context::engineType(){
+        return _renderer->rendererType();
+    }
+
+    void Context::resize(uint16_t width, uint16_t height){
+        _window->resize(width, height);
+    }
+    
+    void Context::sendToRenderPool(s_Renderer::RenderObject *renderObj){
+        _renderer->addObjectToQueue(renderObj);
+    }
+    void Context::setActiveCamera(Cam cam){
+        _renderer->setCamera(cam);
     }
 
 } // namespace sparks

@@ -56,7 +56,7 @@
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
-  "C_Cpp.default.compileCommands": "/home/Snek/.projects/C++/Sparks-Game-Engine/builddir/compile_commands.json",
+  "C_Cpp.default.compileCommands": "/home/Snek/projects/C++/Sparks-Game-Engine/builddir/compile_commands.json",
   "C_Cpp.default.configurationProvider": "mesonbuild.mesonbuild",
   "files.associations": {
     "functional": "cpp",
@@ -127,7 +127,13 @@
     "thread": "cpp",
     "cinttypes": "cpp",
     "typeinfo": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "forward_list": "cpp",
+    "set": "cpp",
+    "unordered_set": "cpp",
+    "expected": "cpp",
+    "cfenv": "cpp",
+    "valarray": "cpp"
   },
   "cmake.sourceDirectory": "/home/Snek/projects/C++/Sparks-Game-Engine/builddir/meson-private/__CMake_compiler_info__"
 }

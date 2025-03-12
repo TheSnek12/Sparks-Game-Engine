@@ -60,4 +60,7 @@ namespace s_Renderer
     OpenGLShader::~OpenGLShader(){
         glDeleteProgram(ID);
     }
+    uint16_t OpenGLShader::getID(){
+        return ID;
+    }
 } // namespace s_Renderer
