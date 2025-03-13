@@ -1,8 +1,6 @@
 #pragma once
 #include "Renderer.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "src/ThirdParty/stb_image/stb_image.h"
 
 namespace s_Renderer
 {

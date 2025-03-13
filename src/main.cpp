@@ -1,5 +1,7 @@
 #include <assimp/Importer.hpp>
+#include <assimp/scene.h>
 #include <assimp/mesh.h>
+#include <assimp/vector3.h>
 #include <assimp/postprocess.h>
 
 #include <Game.h>
@@ -25,8 +27,16 @@ int main(int argc, char const *argv[])
         aiProcess_SortByPType
 
     );
+
     
     
+    
+   for (size_t i = 0; i < scene->mMeshes[0]->mNumVertices; i++)
+   {
+        std::cout << scene->mMeshes[0]->mTextureCoords[0][i].x << " " << scene->mMeshes[0]->mTextureCoords[0][i].y << " " << scene->mMeshes[0]->mTextureCoords[0][i].z << std::endl;
+        std::cout << scene->mMeshes[0]->mVertices[i].x << " " << scene->mMeshes[0]->mVertices[i].y << " " << scene->mMeshes[0]->mVertices[i].z << std::endl;
+        std::cout << scene->mMeshes[0]->mNormals[i].x << " " << scene->mMeshes[0]->mNormals[i].y << " " << scene->mMeshes[0]->mNormals[i].z << std::endl;
+   }
     
 
     Game *instance = Game::getInstance();

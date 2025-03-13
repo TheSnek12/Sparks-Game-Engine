@@ -4,9 +4,6 @@
 #include "Renderer/OpenGL/OpenGLRenderEngine.h"
 #include "GWindow.h"
 #include "Base.h"
-#include "src/Renderer/OpenGL/OpenGLMesh.h"
-#include "src/Renderer/OpenGL/OpenGLShader.h"
-#include "src/Renderer/RenderObject.h"
 
 using namespace s_Renderer;
 namespace sparks

@@ -16,6 +16,10 @@ namespace s_Renderer
         uint16_t _width;
         uint16_t _height;
         Cam camera;
+        std::vector<SpotLight> spotLights;
+        std::vector<PointLight> pointLights;
+        std::vector<DirLight> dirLights;
+
 
 
         std::vector<RenderObject*> _objectQueue;
@@ -29,8 +33,12 @@ namespace s_Renderer
         void drawFrame() override;
         Renderer rendererType() override;
         void setCamera(Cam cam) override;
-
-
+        void addPointLight(PointLight light) override;
+        void removePointLight(PointLight light) override;
+        void addDirLight(DirLight light) override;
+        void removeDirLight(DirLight light) override;
+        void addSpotLight(SpotLight light) override;
+        void removeSpotLight(SpotLight light) override;
         OpenGLRenderEngine(Platform platform, uint16_t width, uint16_t height, GLADloadproc procAddr);
         OpenGLRenderEngine(Platform platform, uint16_t width, uint16_t height);
 

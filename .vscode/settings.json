@@ -133,7 +133,8 @@
     "unordered_set": "cpp",
     "expected": "cpp",
     "cfenv": "cpp",
-    "valarray": "cpp"
+    "valarray": "cpp",
+    "ranges": "cpp"
   },
   "cmake.sourceDirectory": "/home/Snek/projects/C++/Sparks-Game-Engine/builddir/meson-private/__CMake_compiler_info__"
 }

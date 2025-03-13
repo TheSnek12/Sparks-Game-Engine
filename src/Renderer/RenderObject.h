@@ -14,7 +14,7 @@ namespace s_Renderer
     {
         Mesh* mesh;
         Shader* shader;
-        std::vector<Texture> textures;
+        std::vector<Texture*> textures;
         
         RenderObject() : mesh(nullptr), shader(nullptr), textures({}) {
 

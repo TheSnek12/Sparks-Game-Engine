@@ -7,7 +7,9 @@
 
 namespace s_Renderer
 {
-
+    static std::string DEFAULT_RES = "../../res/";
+    static std::string IMAGES = "default_texture/";
+    
     enum Platform
     {
         LINUX,

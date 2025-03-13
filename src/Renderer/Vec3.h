@@ -22,6 +22,10 @@ struct Vec3
         glm::vec3 glhs = glm::vec3(rhs.x, rhs.y, rhs.z);
         return glm::dot(grhs, glhs);
     }
+    Vec3 normalize(){
+        glm::vec3 gvec = glm::vec3(x,y,z);
+        return Vec3(glm::normalize(gvec));
+    }
 
     friend Vec3 &operator+=(Vec3 &lhs, const Vec3 &rhs)
     {

@@ -79,7 +79,7 @@ namespace s_Renderer
                 obj->shader->bind();
                 for (int i = 0; i < obj->textures.size(); i++)
                 {
-                    obj->textures[i].bind(i);
+                    obj->textures[i]->bind(i);
                 }
                 
                 
@@ -88,13 +88,18 @@ namespace s_Renderer
                 glm::vec3 modelRight = glm::normalize(glm::cross(up, dir));
                 glm::vec3 modelUp = glm::cross(dir, modelRight);
 
+                if(dir.y == 1){
+                    modelUp = glm::vec3(1.0f, 0.0f, 0.0f);
+
+                }
+
                 
             
 
                 glm::mat4 model = glm::mat4(1.0f);
                 model = glm::translate(model, pos);
 
-                model = (glm::lookAt(pos, dir+pos, glm::vec3(0.f, 1.f, 0.f)));
+                model = (glm::lookAt(pos, dir+pos, modelUp));
 
                 float roll = *obj->mesh->roll * M_PI*2;
                 model = glm::rotate(model, roll, dir);
@@ -105,6 +110,7 @@ namespace s_Renderer
                 glUniformMatrix4fv(matLoc, 1, GL_FALSE, glm::value_ptr(model));
                 int viewLoc = glGetUniformLocation(obj->shader->getID(), "view");
                 glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+                
                             
                 glDrawElements(GL_TRIANGLES, obj->mesh->getIndicSize(), GL_UNSIGNED_INT, (void*)0);
         
@@ -116,6 +122,39 @@ namespace s_Renderer
         
 
     }
+
+    
+    void OpenGLRenderEngine::addDirLight(DirLight dirLight){
+        dirLights.push_back(dirLight);
+    }
+    void OpenGLRenderEngine::removeDirLight(DirLight dirLight){
+        for (size_t i = 0; i < dirLights.size(); i++)
+        {
+            if (dirLights[i] == dirLight)
+            dirLights.erase(dirLights.begin()+i);
+        }
+    }
+    void OpenGLRenderEngine::addPointLight(PointLight pointLight){
+        pointLights.push_back(pointLight);
+    }
+    void OpenGLRenderEngine::removePointLight(PointLight pointLight){
+        for (size_t i = 0; i < pointLights.size(); i++)
+        {
+            if (pointLights[i] == pointLight)
+            pointLights.erase(pointLights.begin()+i);
+        }
+    }
+    void OpenGLRenderEngine::addSpotLight(SpotLight spotLight){
+        spotLights.push_back(spotLight);
+    }
+    void OpenGLRenderEngine::removeSpotLight(SpotLight spotLight){
+        for (size_t i = 0; i < spotLights.size(); i++)
+        {
+            if (spotLights[i] == spotLight)
+            spotLights.erase(spotLights.begin()+i);
+        }
+    }
+
 
 
     bool OpenGLRenderEngine::destroyRenderer(){

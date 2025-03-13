@@ -40,6 +40,7 @@ namespace s_Renderer{
         {31, GL_TEXTURE31},
     };
 
+    
     class OpenGLTexture : public Texture{
         public:
         OpenGLTexture(std::string filename);

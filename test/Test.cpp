@@ -8,8 +8,11 @@ someGame game = someGame();
 sparks::Scene* scene = new sparks::Scene();
 sparks::GameObject* obj = new sparks::GameObject();
 sparks::Transform* script = new sparks::Transform();
-sparks::RenderMesh* objRender = new sparks::RenderMesh();
+sparks::RenderMesh* objRender = new sparks::RenderMesh("test/res/obj/cottage_obj.obj");
 
+sparks::GameObject* objclone = new sparks::GameObject();
+sparks::Transform* transform = new sparks::Transform();
+sparks::RenderMesh* objMesh = new sparks::RenderMesh("test/res/obj/cottage_obj.obj");
 
 
 sparks::Camera cam;
@@ -27,14 +30,13 @@ float toRads(float n){
 
 void someGame::update()
 {
-    obj->getScriptable<sparks::Transform>()->position += 0.01f;
     //static_cast<sparks::Transform*>(cam.scriptables[0])->position.z += 0.01;
     if (wPressed){
         Vec3 dir = cam.getScriptable<sparks::Transform>()->rotation * 0.1;
         cam.getScriptable<sparks::Transform>()->position += dir;
     }
     if (aPressed){
-        Vec3 dir = cam.getScriptable<sparks::Transform>()->rotation.cross(Vec3(0.0f, 1.0f, 0.0f)) * 0.1;
+        Vec3 dir = cam.getScriptable<sparks::Transform>()->rotation.cross(Vec3(0.0f, 1.0f, 0.0f)).normalize() * 0.1;
         cam.getScriptable<sparks::Transform>()->position -= dir;
     }
     if (sPressed){
@@ -42,7 +44,7 @@ void someGame::update()
         cam.getScriptable<sparks::Transform>()->position -= dir;
     }
     if (dPressed){
-        Vec3 dir = cam.getScriptable<sparks::Transform>()->rotation.cross(Vec3(0.0f, 1.0f, 0.0f)) * 0.1;
+        Vec3 dir = cam.getScriptable<sparks::Transform>()->rotation.cross(Vec3(0.0f, 1.0f, 0.0f)).normalize() * 0.1;
         cam.getScriptable<sparks::Transform>()->position += dir;
     }
 }
@@ -108,12 +110,24 @@ void someGame::init(){
     
     scene->addObject(obj);
     obj->addScriptable(script);
-    objRender->object = obj;
     obj->addScriptable(objRender);
     scene->activeCamera = &cam;
 
-    obj->getScriptable<sparks::Transform>()->rotation = Vec3(1.0f, 1.0f, 0.0f);
+    scene->addObject(objclone);
+    objclone->addScriptable(transform);
+    objclone->addScriptable(objMesh);
+
+
+    objclone->getScriptable<sparks::Transform>()->rotation = Vec3(0.0f, 1.0f, 0.0f);
+    objclone->getScriptable<sparks::Transform>()->position = Vec3(1.0f, 0.5f, 0.0f);
+    obj->getScriptable<sparks::Transform>()->rotation = Vec3(1.0f, 0.0f, 0.0f);
     obj->getScriptable<sparks::Transform>()->position = Vec3(1.0f, 0.5f, 0.0f);
+
+
+
+    objclone->getScriptable<sparks::RenderMesh>()->addTexture("res/default_texture/default_tex.png");
+    obj->getScriptable<sparks::RenderMesh>()->addTexture("res/default_texture/default_tex.png");
+
     cam.getScriptable<sparks::Transform>()->rotation = Vec3(1.0f, 0.0f, 0.0f);
     cam.getScriptable<sparks::Transform>()->position = Vec3(1.0f, 0.5f, 0.0f);
 

@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <vector>
 #include "Vec3.h"
+#include "Vec2.h"
 #include "Renderer.h"
 namespace s_Renderer
 {
@@ -12,7 +13,9 @@ namespace s_Renderer
     {
         Vec3 pos;
         Vec3 normal;
-        Vertex(Vec3 pos, Vec3 normal) : pos(pos), normal(normal){};
+        Vec2 texCoord;
+        Vertex(Vec3 pos, Vec3 normal) : pos(pos), normal(normal), texCoord(0.0f,0.0f){};
+        Vertex(Vec3 pos, Vec3 normal, Vec2 texCoord) : pos(pos), normal(normal), texCoord(texCoord){};
     };
     
 

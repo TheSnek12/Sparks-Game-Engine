@@ -1,5 +1,6 @@
 #include "Texture.h"
-
+#define STB_IMAGE_IMPLEMENTATION
+#include "src/ThirdParty/stb_image/stb_image.h"
 
 namespace s_Renderer
 {
@@ -9,6 +10,7 @@ namespace s_Renderer
         if (!data){
             const char* str = filename.c_str();
             logger::log(logger::LEVEL_ERROR, strcat("Could not load image: ", str));
+            data = stbi_load((DEFAULT_RES+IMAGES+"default_tex.png").c_str(), &width, &height, &nrChannels, 0);
         }
     }
     
