@@ -9,7 +9,7 @@ namespace s_Renderer
     }
     OpenGLRenderEngine::OpenGLRenderEngine(Platform platform, uint16_t width, uint16_t height) :
     _platform(platform), _width(width), _height(height){
-        
+
     }
 
     bool OpenGLRenderEngine::initRenderer(){
@@ -43,11 +43,21 @@ namespace s_Renderer
         glClear(GL_COLOR_BUFFER_BIT);
 
         
+        DirLight testLight;
+        testLight.color = new Vec3(0,0,0);
+        testLight.rot = new Vec3(0, 0, 0);
+        testLight.luminance = new float(0.5f);
+
+        dirSSBO = new OpenGLSSBO<DirLightData>(1, 0, nullptr);
+        addDirLight(testLight);
+
+
 
 
         return true;
 
     }
+
 
     void OpenGLRenderEngine::addObjectToQueue(RenderObject* renderObject){
         _objectQueue.push_back(renderObject);
@@ -55,6 +65,18 @@ namespace s_Renderer
 
     void OpenGLRenderEngine::drawFrame(){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+        std::vector<DirLightData> dirLightData;
+       
+        for (size_t i = 0; i < dirLights.size(); i++)
+        {
+            dirSSBO->data[i].rot = *dirLights[i].rot;
+            dirSSBO->data[i].color = *dirLights[i].color;
+            dirSSBO->data[i].luminance = *dirLights[i].luminance;
+        }
+        
+        
 
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)_width/(float)_height, camera.near, camera.far );
 
@@ -111,7 +133,9 @@ namespace s_Renderer
                 int viewLoc = glGetUniformLocation(obj->shader->getID(), "view");
                 glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
                 
-                            
+                
+                
+
                 glDrawElements(GL_TRIANGLES, obj->mesh->getIndicSize(), GL_UNSIGNED_INT, (void*)0);
         
                 
@@ -126,6 +150,7 @@ namespace s_Renderer
     
     void OpenGLRenderEngine::addDirLight(DirLight dirLight){
         dirLights.push_back(dirLight);
+        dirSSBO->data.push_back(DirLightData(*dirLight.rot, *dirLight.color, *dirLight.luminance));
     }
     void OpenGLRenderEngine::removeDirLight(DirLight dirLight){
         for (size_t i = 0; i < dirLights.size(); i++)

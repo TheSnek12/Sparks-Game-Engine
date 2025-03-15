@@ -2,12 +2,13 @@
 #include <stdint.h>
 #include <Logger/Logger.h>
 #include <glad/glad.h>
+#include "OpenGLSSBO.h"
 #include "../IRenderEngine.h"
 
 namespace s_Renderer
 {
 
-
+    
 
     class OpenGLRenderEngine : public IRenderEngine
     {
@@ -20,7 +21,7 @@ namespace s_Renderer
         std::vector<PointLight> pointLights;
         std::vector<DirLight> dirLights;
 
-
+        OpenGLSSBO<DirLightData>* dirSSBO;
 
         std::vector<RenderObject*> _objectQueue;
 

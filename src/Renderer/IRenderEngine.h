@@ -25,6 +25,12 @@ namespace s_Renderer
             return pos==rhs.pos&&color==rhs.color&&luminance==rhs.luminance;
         }
     };
+    struct PointLightData{
+        Vec3 pos;
+        Vec3 color;
+        float luminance;
+        PointLightData(Vec3 pos, Vec3 color, float luminance): pos(pos), color(color), luminance(luminance){}
+    };
     struct DirLight{
         Vec3* rot;
         Vec3* color;
@@ -33,6 +39,12 @@ namespace s_Renderer
         bool operator==(const DirLight& rhs){
             return rot==rhs.rot&&color==rhs.color&&luminance==rhs.luminance;
         }
+    };
+    struct DirLightData{
+        Vec3 rot;
+        Vec3 color;
+        float luminance;
+        DirLightData(Vec3 rot, Vec3 color, float luminance): rot(rot), color(color), luminance(luminance){}
     };
     struct SpotLight{
         Vec3* pos;
@@ -45,6 +57,15 @@ namespace s_Renderer
         bool operator==(const SpotLight& rhs){
             return pos==rhs.pos&&dir==rhs.dir&&color==rhs.color&&innerRadius==rhs.innerRadius&&radius==rhs.radius&&luminance==rhs.luminance;
         }
+    };
+    struct SpotLightData{
+        Vec3 pos;
+        Vec3 dir;
+        Vec3 color;
+        float innerRadius;
+        float radius;
+        float luminance;
+        SpotLightData(Vec3 pos, Vec3 dir, Vec3 color, float innerRadius, float radius, float luminance): pos(pos), dir(dir), color(color), innerRadius(innerRadius), radius(radius), luminance(luminance) {}
     };
 
     class IRenderEngine {

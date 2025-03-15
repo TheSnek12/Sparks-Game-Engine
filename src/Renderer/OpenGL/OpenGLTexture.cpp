@@ -9,11 +9,12 @@ namespace s_Renderer{
         glGenTextures(1, &ID);
         glBindTexture(GL_TEXTURE_2D, ID);
 
+    
         int mode = GL_RGBA;
         if (nrChannels == 3){
             mode = GL_RGB;
         }
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, mode, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
         free();
 

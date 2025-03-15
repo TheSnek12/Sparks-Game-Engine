@@ -113,7 +113,6 @@ void someGame::init(){
     obj->addScriptable(objRender);
     scene->activeCamera = &cam;
 
-    scene->addObject(objclone);
     objclone->addScriptable(transform);
     objclone->addScriptable(objMesh);
 
