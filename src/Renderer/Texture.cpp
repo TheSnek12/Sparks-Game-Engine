@@ -9,7 +9,8 @@ namespace s_Renderer
         data = stbi_load(filename.c_str(), &width, &height, &nrChannels, 0);
         if (!data){
             const char* str = filename.c_str();
-            logger::log(logger::LEVEL_ERROR, strcat("Could not load image: ", str));
+            logger::log(logger::LEVEL_ERROR, "Could not load:");
+            logger::log(logger::LEVEL_ERROR, str);
             data = stbi_load((DEFAULT_RES+IMAGES+"default_tex.png").c_str(), &width, &height, &nrChannels, 0);
         }
     }
