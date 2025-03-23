@@ -36,7 +36,7 @@ namespace sparks
     {
 
         logger::log(logger::LEVEL_LOG, "Shutting down engine..");
-        
+
         if (!_renderer->destroyRenderer())
         {
             logger::log(logger::LEVEL_ERROR, "Failed to cleanly destroy renderer");
@@ -152,19 +152,40 @@ namespace sparks
         return _instance;
     }
 
-    s_Renderer::Renderer Context::engineType(){
+    s_Renderer::Renderer Context::engineType()
+    {
         return _renderer->rendererType();
     }
 
-    void Context::resize(uint16_t width, uint16_t height){
+    void Context::resize(uint16_t width, uint16_t height)
+    {
         _window->resize(width, height);
     }
-    
-    void Context::sendToRenderPool(s_Renderer::RenderObject *renderObj){
+
+    void Context::sendToRenderPool(s_Renderer::RenderObject *renderObj)
+    {
         _renderer->addObjectToQueue(renderObj);
     }
-    void Context::setActiveCamera(Cam cam){
+    void Context::setActiveCamera(Cam cam)
+    {
         _renderer->setCamera(cam);
     }
-
+    void Context::addDirLight(s_Renderer::DirLight dirLight){
+        _renderer->addDirLight(dirLight);
+    }
+    void Context::removeDirLight(s_Renderer::DirLight dirLight){
+        _renderer->removeDirLight(dirLight);
+    }
+    void Context::addPointLight(s_Renderer::PointLight pointLight){
+        _renderer->addPointLight(pointLight);
+    }
+    void Context::removePointLight(s_Renderer::PointLight spotLight){
+        _renderer->removePointLight(spotLight);
+    }
+    void Context::addSpotLight(s_Renderer::SpotLight spotLight){
+        _renderer->addSpotLight(spotLight);
+    }
+    void Context::removeSpotLight(s_Renderer::SpotLight spotLight){
+        _renderer->removeSpotLight(spotLight);
+    }
 } // namespace sparks

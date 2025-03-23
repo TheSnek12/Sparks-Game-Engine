@@ -58,7 +58,7 @@ namespace sparks
             return false;
         }
         glfwMakeContextCurrent(_window);
-        glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        glfwSetInputMode(_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         glfwSetCursorPosCallback(_window, mouse_callback);
         glfwSetKeyCallback(_window, keyboard_callback);
         logger::log(logger::LEVEL_LOG, "Successfully created GLFW window!");

@@ -1,6 +1,7 @@
 #pragma once
 #include "Renderer.h"
 #include "Vec3.h"
+#include "Vec4.h"
 #include "RenderObject.h"
 namespace s_Renderer
 {
@@ -26,13 +27,12 @@ namespace s_Renderer
         }
     };
     struct PointLightData{
-        Vec3 pos;
-        Vec3 color;
-        float luminance;
+        Vec3 pos; float __padding;
+        Vec3 color; float luminance;
         PointLightData(Vec3 pos, Vec3 color, float luminance): pos(pos), color(color), luminance(luminance){}
     };
     struct DirLight{
-        Vec3* rot;
+        Vec3* rot; 
         Vec3* color;
         float* luminance;
 
@@ -41,9 +41,8 @@ namespace s_Renderer
         }
     };
     struct DirLightData{
-        Vec3 rot;
-        Vec3 color;
-        float luminance;
+        Vec3 rot; float __padding;
+        Vec3 color; float luminance;
         DirLightData(Vec3 rot, Vec3 color, float luminance): rot(rot), color(color), luminance(luminance){}
     };
     struct SpotLight{
@@ -59,12 +58,10 @@ namespace s_Renderer
         }
     };
     struct SpotLightData{
-        Vec3 pos;
-        Vec3 dir;
-        Vec3 color;
-        float innerRadius;
-        float radius;
-        float luminance;
+        Vec3 pos; float innerRadius;
+        Vec3 dir; float radius;
+        Vec3 color; float luminance;
+    
         SpotLightData(Vec3 pos, Vec3 dir, Vec3 color, float innerRadius, float radius, float luminance): pos(pos), dir(dir), color(color), innerRadius(innerRadius), radius(radius), luminance(luminance) {}
     };
 

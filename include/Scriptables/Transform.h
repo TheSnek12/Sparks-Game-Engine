@@ -14,7 +14,8 @@ namespace sparks
             
         };
         Vec3 position;
+        Vec3 scale = Vec3(1, 1, 1);
         float roll;
-        Vec3 rotation;
+        Vec3 rotation = Vec3(0, 0, 1);
     };
 } // namespace sparks

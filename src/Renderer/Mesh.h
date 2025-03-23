@@ -32,6 +32,7 @@ namespace s_Renderer
 
         public:
         Vec3* pos;
+        Vec3* scale;
         float* roll;
         Vec3* dir;
         Mesh();

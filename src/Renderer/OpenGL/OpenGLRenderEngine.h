@@ -5,6 +5,7 @@
 #include "OpenGLSSBO.h"
 #include "../IRenderEngine.h"
 
+
 namespace s_Renderer
 {
 
@@ -22,6 +23,8 @@ namespace s_Renderer
         std::vector<DirLight> dirLights;
 
         OpenGLSSBO<DirLightData>* dirSSBO;
+        OpenGLSSBO<PointLightData>* pointSSBO;
+        OpenGLSSBO<SpotLightData>* spotSSBO;
 
         std::vector<RenderObject*> _objectQueue;
 

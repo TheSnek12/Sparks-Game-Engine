@@ -47,6 +47,13 @@ namespace sparks
         void abort() override;
         void selectEngine(Renderer renderer) override;
         void resize(uint16_t width, uint16_t height) override;
+        void addDirLight(s_Renderer::DirLight);
+        void removeDirLight(s_Renderer::DirLight);
+        void addPointLight(s_Renderer::PointLight);
+        void removePointLight(s_Renderer::PointLight);
+        void addSpotLight(s_Renderer::SpotLight);
+        void removeSpotLight(s_Renderer::SpotLight);
+        
 
         Context();
     };
