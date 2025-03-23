@@ -16,6 +16,7 @@ int main(int argc, char const *argv[])
 
     WINDOWTYPE = GLFW;
     PLATFORM = sparks::LINUX;
+
     Game *instance = Game::getInstance();
     Context context;
 

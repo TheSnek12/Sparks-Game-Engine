@@ -12,10 +12,6 @@ sparks::Transform* script = new sparks::Transform();
 sparks::RenderMesh* objRender = new sparks::RenderMesh("test/res/obj/cottage_obj.obj");
 sparks::AudioSource* audio = new sparks::AudioSource();
 
-sparks::GameObject* objclone = new sparks::GameObject();
-sparks::Transform* transform = new sparks::Transform();
-sparks::RenderMesh* objMesh = new sparks::RenderMesh("test/res/obj/cottage_obj.obj");
-
 
 sparks::Camera* cam = new sparks::Camera();
 
@@ -118,19 +114,11 @@ void someGame::init(){
     scene->addObject(cam);
     scene->activeCamera = cam;
 
-    objclone->addScriptable(transform);
-    objclone->addScriptable(objMesh);
 
-
-    objclone->getScriptable<sparks::Transform>()->rotation = Vec3(0.0f, 1.0f, 0.0f);
-    objclone->getScriptable<sparks::Transform>()->position = Vec3(1.0f, 0.5f, 0.0f);
     obj->getScriptable<sparks::Transform>()->rotation = Vec3(1.0f, 0.0f, 0.0f);
     obj->getScriptable<sparks::Transform>()->position = Vec3(1.0f, 0.5f, 0.0f);
 
-
-
-    objclone->getScriptable<sparks::RenderMesh>()->addTexture("res/default_texture/default_tex.png");
-    obj->getScriptable<sparks::RenderMesh>()->addTexture("res/default_texture/default_tex.png");
+    obj->getScriptable<sparks::RenderMesh>()->addTexture("test/res/textures/texture-paint-white-background-gouache-canvas-stripes-98611292.jpg");
 
     cam->getScriptable<sparks::Transform>()->rotation = Vec3(1.0f, 0.0f, 0.0f);
     cam->getScriptable<sparks::Transform>()->position = Vec3(1.0f, 0.5f, 0.0f);
@@ -138,4 +126,4 @@ void someGame::init(){
 
     setName("Sparks Game Engine Test");
     loadScene(scene);
-}
+}   
