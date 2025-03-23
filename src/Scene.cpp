@@ -80,6 +80,7 @@ namespace sparks
         }
         
         Context::getContext()->setActiveCamera(activeCamera->cam);
+        Context::getContext()->setActiveListener(activeCamera->listener);
         running = true;
 
     }

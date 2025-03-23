@@ -2,10 +2,13 @@
 #include <Game.h>
 #include "IContext.h"
 #include "Renderer/OpenGL/OpenGLRenderEngine.h"
+#include "Audio/AL/ALAudio.h"
 #include "GWindow.h"
 #include "Base.h"
 
 using namespace s_Renderer;
+using namespace s_Audio;
+
 namespace sparks
 {
 
@@ -31,7 +34,9 @@ namespace sparks
         inline static Context *_instance = nullptr;
         GameState _state;
         IRenderEngine *_renderer = nullptr;
+        IAudioEngine *_audio = nullptr;
         Window *_window = nullptr;
+        
         Game *_game = nullptr;
 
         bool init() override;
@@ -43,8 +48,11 @@ namespace sparks
         void sendToRenderPool(s_Renderer::RenderObject* renderObj) override;
         s_Renderer::Renderer engineType() override;
         void setActiveCamera(s_Renderer::Cam cam) override;
+        void setActiveListener(s_Audio::Listener listener) override;
         void close() override;
         void abort() override;
+        s_Audio::Speaker getSpeaker() override;
+        void removeSpeaker(s_Audio::Speaker speaker) override;
         void selectEngine(Renderer renderer) override;
         void resize(uint16_t width, uint16_t height) override;
 

@@ -9,11 +9,14 @@ namespace sparks
 
         public:
         void onStart() override {};
-        void onTick() override {};
+        void onTick() override {
+            up = position.cross(Vec3(0, 1, 0).cross(position));
+        };
         ~Transform() override{
             
         };
         Vec3 position;
+        Vec3 up;
         float roll;
         Vec3 rotation;
     };

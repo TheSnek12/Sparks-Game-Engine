@@ -1,6 +1,7 @@
 #include "Test.h"
 #include <Scriptables/Transform.h>
 #include <Scriptables/RenderMesh.h>
+#include <Scriptables/AudioSource.h>
 #include <Camera.h>
 #include <math.h>
 
@@ -9,13 +10,14 @@ sparks::Scene* scene = new sparks::Scene();
 sparks::GameObject* obj = new sparks::GameObject();
 sparks::Transform* script = new sparks::Transform();
 sparks::RenderMesh* objRender = new sparks::RenderMesh("test/res/obj/cottage_obj.obj");
+sparks::AudioSource* audio = new sparks::AudioSource();
 
 sparks::GameObject* objclone = new sparks::GameObject();
 sparks::Transform* transform = new sparks::Transform();
 sparks::RenderMesh* objMesh = new sparks::RenderMesh("test/res/obj/cottage_obj.obj");
 
 
-sparks::Camera cam;
+sparks::Camera* cam = new sparks::Camera();
 
 double xrot = 0;
 double yrot = 0;
@@ -32,20 +34,20 @@ void someGame::update()
 {
     //static_cast<sparks::Transform*>(cam.scriptables[0])->position.z += 0.01;
     if (wPressed){
-        Vec3 dir = cam.getScriptable<sparks::Transform>()->rotation * 0.1;
-        cam.getScriptable<sparks::Transform>()->position += dir;
+        Vec3 dir = cam->getScriptable<sparks::Transform>()->rotation * 0.1;
+        cam->getScriptable<sparks::Transform>()->position += dir;
     }
     if (aPressed){
-        Vec3 dir = cam.getScriptable<sparks::Transform>()->rotation.cross(Vec3(0.0f, 1.0f, 0.0f)).normalize() * 0.1;
-        cam.getScriptable<sparks::Transform>()->position -= dir;
+        Vec3 dir = cam->getScriptable<sparks::Transform>()->rotation.cross(Vec3(0.0f, 1.0f, 0.0f)).normalize() * 0.1;
+        cam->getScriptable<sparks::Transform>()->position -= dir;
     }
     if (sPressed){
-        Vec3 dir = cam.getScriptable<sparks::Transform>()->rotation * 0.1;
-        cam.getScriptable<sparks::Transform>()->position -= dir;
+        Vec3 dir = cam->getScriptable<sparks::Transform>()->rotation * 0.1;
+        cam->getScriptable<sparks::Transform>()->position -= dir;
     }
     if (dPressed){
-        Vec3 dir = cam.getScriptable<sparks::Transform>()->rotation.cross(Vec3(0.0f, 1.0f, 0.0f)).normalize() * 0.1;
-        cam.getScriptable<sparks::Transform>()->position += dir;
+        Vec3 dir = cam->getScriptable<sparks::Transform>()->rotation.cross(Vec3(0.0f, 1.0f, 0.0f)).normalize() * 0.1;
+        cam->getScriptable<sparks::Transform>()->position += dir;
     }
 }
 
@@ -95,11 +97,11 @@ void someGame::onMouseMove(double x, double y){
     pitch = std::min(89.9, pitch);
     pitch = std::max(-89.9, pitch);
 
-    cam.getScriptable<sparks::Transform>()->rotation.x = cos(toRads(yaw)) * cos(toRads(pitch));
-    cam.getScriptable<sparks::Transform>()->rotation.y = sin(toRads(pitch));
-    cam.getScriptable<sparks::Transform>()->rotation.z = sin(toRads(yaw)) * cos(toRads(pitch));
+    cam->getScriptable<sparks::Transform>()->rotation.x = cos(toRads(yaw)) * cos(toRads(pitch));
+    cam->getScriptable<sparks::Transform>()->rotation.y = sin(toRads(pitch));
+    cam->getScriptable<sparks::Transform>()->rotation.z = sin(toRads(yaw)) * cos(toRads(pitch));
 
-    cam.getScriptable<sparks::Transform>();
+    cam->getScriptable<sparks::Transform>();
 
 
 
@@ -111,7 +113,10 @@ void someGame::init(){
     scene->addObject(obj);
     obj->addScriptable(script);
     obj->addScriptable(objRender);
-    scene->activeCamera = &cam;
+    obj->addScriptable(audio);
+    
+    scene->addObject(cam);
+    scene->activeCamera = cam;
 
     objclone->addScriptable(transform);
     objclone->addScriptable(objMesh);
@@ -127,8 +132,8 @@ void someGame::init(){
     objclone->getScriptable<sparks::RenderMesh>()->addTexture("res/default_texture/default_tex.png");
     obj->getScriptable<sparks::RenderMesh>()->addTexture("res/default_texture/default_tex.png");
 
-    cam.getScriptable<sparks::Transform>()->rotation = Vec3(1.0f, 0.0f, 0.0f);
-    cam.getScriptable<sparks::Transform>()->position = Vec3(1.0f, 0.5f, 0.0f);
+    cam->getScriptable<sparks::Transform>()->rotation = Vec3(1.0f, 0.0f, 0.0f);
+    cam->getScriptable<sparks::Transform>()->position = Vec3(1.0f, 0.5f, 0.0f);
 
 
     setName("Sparks Game Engine Test");

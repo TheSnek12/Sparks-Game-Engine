@@ -16,6 +16,9 @@ namespace sparks
             logger::log(logger::LEVEL_FATAL, "Failed to initialize window");
             return false;
         }
+        if (!_audio->initAudio()){
+            logger::log(logger::LEVEL_ERROR, "Failed to initialize renderer");
+        }
         if (!_renderer->initRenderer())
         {
             logger::log(logger::LEVEL_FATAL, "Failed to initialize renderer");
@@ -37,6 +40,10 @@ namespace sparks
 
         logger::log(logger::LEVEL_LOG, "Shutting down engine..");
         
+        if (!_audio->destroyAudio()){
+            logger::log(logger::LEVEL_ERROR, "Failed to cleanly destroy audio");
+            return false;
+        }
         if (!_renderer->destroyRenderer())
         {
             logger::log(logger::LEVEL_ERROR, "Failed to cleanly destroy renderer");
@@ -69,6 +76,8 @@ namespace sparks
 
             _renderer->drawFrame();
 
+            _audio->update();
+
             _window->pollWindowEvents();
         }
         if (_state == ABORTING)
@@ -94,6 +103,8 @@ namespace sparks
         }
 
         selectEngine(OpenGL);
+        _audio = new s_Audio::ALAudio();
+
 
         assert(_instance == nullptr);
         _instance = this;
@@ -136,6 +147,7 @@ namespace sparks
 
             break;
         }
+
     }
 
     void Context::abort()
@@ -165,6 +177,19 @@ namespace sparks
     }
     void Context::setActiveCamera(Cam cam){
         _renderer->setCamera(cam);
+        
+    }
+
+    void Context::setActiveListener(Listener listener){
+        _audio->setListener(listener);
+    }
+
+    s_Audio::Speaker Context::getSpeaker(){
+        return _audio->createSpeaker();
+    }
+
+    void Context::removeSpeaker(s_Audio::Speaker speaker){
+        return _audio->destroySpeaker(speaker);
     }
 
 } // namespace sparks

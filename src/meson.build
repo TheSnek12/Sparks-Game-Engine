@@ -12,10 +12,14 @@ renderer_srcs = files(
     'Renderer/Mesh.cpp',
     'ThirdParty/glad/glad.c'
 )
+audio_srcs = files(
+    'Audio/AL/ALAudio.cpp',
+)
 engine_srcs = files(
     'GWindow.cpp',
     'Scriptables/RenderMesh.cpp',
     'Window.cpp',
+    'Scriptables/AudioSource.cpp',
     'Game.cpp',
     'Scene.cpp',
     'GameObject.cpp',
@@ -25,8 +29,9 @@ engine_srcs = files(
 )
 deps = [
     dependency('glfw3'),
+    dependency('openal'),
     dependency('glm'),
     dependency('assimp')
 ]
 
-build_srcs = logger_srcs + renderer_srcs + engine_srcs
+build_srcs = logger_srcs + renderer_srcs + engine_srcs + audio_srcs

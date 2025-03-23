@@ -9,15 +9,19 @@ out = '/workspaces/Sparks-Game-Engine/install/Engine'
 build_dir = 'builddir'
 include = include_directories('include')
 
+
+
 subdir('include')
 install_headers(headers)
 
 subdir('src')
-engine = library('Sparks-Game-Engine',
+
+
+engine = static_library('Sparks-Game-Engine',
            sources: build_srcs,
            install : true,
            dependencies: deps,
-           include_directories: include
+           include_directories: include,
            
 
            )

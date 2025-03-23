@@ -1,5 +1,7 @@
 #pragma once
 #include "src/Renderer/RenderObject.h"
+#include "src/Audio/IAudioEngine.h"
+#include "src/Audio/AL/Speaker.h"
 #include "Renderer/IRenderEngine.h"
 namespace sparks
 
@@ -13,8 +15,11 @@ namespace sparks
     public:
         virtual bool init() = 0;
         virtual void setActiveCamera(s_Renderer::Cam cam) = 0;
+        virtual void setActiveListener(s_Audio::Listener listener) = 0;
         virtual bool cleanup() = 0;
         virtual s_Renderer::Renderer engineType() = 0;
+        virtual s_Audio::Speaker getSpeaker() = 0;
+        virtual void removeSpeaker(s_Audio::Speaker speaker) = 0;
         virtual void selectEngine(Renderer renderer) = 0;
         virtual void sendToRenderPool(s_Renderer::RenderObject* renderObj) = 0;
         virtual void close() = 0;
