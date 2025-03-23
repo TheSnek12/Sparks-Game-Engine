@@ -19,7 +19,7 @@ namespace sparks
             addScriptable(new Transform());
             cam.dir = &getScriptable<Transform>()->rotation;
             cam.pos = &getScriptable<Transform>()->position;
-            cam.far = 100.0f;
+            cam.far = 10000.0f;
             cam.near = 0.1f;
             cam.fov = 90;
 

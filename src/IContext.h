@@ -16,6 +16,9 @@ namespace sparks
         virtual bool init() = 0;
         virtual void setActiveCamera(s_Renderer::Cam cam) = 0;
         virtual void setActiveListener(s_Audio::Listener listener) = 0;
+        virtual void addDirLight(s_Renderer::DirLight dirLight) = 0;
+        virtual void addPointLight(s_Renderer::PointLight pointLight) = 0;
+        virtual void addSpotLight(s_Renderer::SpotLight spotLight) = 0;
         virtual bool cleanup() = 0;
         virtual s_Renderer::Renderer engineType() = 0;
         virtual s_Audio::Speaker getSpeaker() = 0;

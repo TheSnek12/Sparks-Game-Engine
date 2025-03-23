@@ -44,6 +44,7 @@ namespace sparks
             break;
         }
         mesh->dir = &object->getScriptable<Transform>()->rotation;
+        mesh->scale = &object->getScriptable<Transform>()->scale;
         mesh->roll = &object->getScriptable<Transform>()->roll;
         mesh->pos = &object->getScriptable<Transform>()->position;
     }

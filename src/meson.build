@@ -18,6 +18,9 @@ audio_srcs = files(
 engine_srcs = files(
     'GWindow.cpp',
     'Scriptables/RenderMesh.cpp',
+    'Scriptables/DirectionalLight.cpp',
+    'Scriptables/PointLight.cpp',
+    'Scriptables/SpotLight.cpp',
     'Window.cpp',
     'Scriptables/AudioSource.cpp',
     'Game.cpp',
