@@ -14,6 +14,8 @@ namespace s_Audio
         uint ID;
 
         void load(ALenum format, ALvoid* data, ALsizei size, ALsizei freq){
+
+            
             alBufferData(buffer, format, data, size, freq);
             if (alGetError() != AL_NO_ERROR)
             {

@@ -128,6 +128,7 @@ public:
     
     /** @Returns the number of samples per channel */
     int getNumSamplesPerChannel() const;
+
     
     /** @Returns the length in seconds of the audio file based on the number of samples and sample rate */
     double getLengthInSeconds() const;
@@ -161,6 +162,7 @@ public:
     /** Sets the sample rate for the audio file. If you use the save() function, this sample rate will be used */
     void setSampleRate (const uint32_t newSampleRate);
     
+    bool savePCMToBuffer(std::vector<uint8_t>& fileData);
     //=============================================================
     /** Sets whether the library should log error messages to the console. By default this is true */
     void shouldLogErrorsToConsole (bool logErrors);
@@ -486,7 +488,62 @@ void AudioFile<T>::shouldLogErrorsToConsole (bool logErrors)
 {
     logErrorsToConsole = logErrors;
 }
+/** @note extracted this from writing to WAV file -- this is not part of the original library. */
+template <class T>
+bool AudioFile<T>::savePCMToBuffer(std::vector<uint8_t>& fileData)
+{
+	fileData.clear();
 
+	int16_t audioFormat = bitDepth == 32 ? WavAudioFormat::IEEEFloat : WavAudioFormat::PCM;
+
+	for (int i = 0; i < getNumSamplesPerChannel(); i++)
+	{
+		for (int channel = 0; channel < getNumChannels(); channel++)
+		{
+			if (bitDepth == 8)
+			{
+				uint8_t byte =  AudioSampleConverter<T>::sampleToSixteenBitInt(samples[channel][i]);
+				fileData.push_back(byte);
+			}
+			else if (bitDepth == 16)
+			{
+				int16_t sampleAsInt = AudioSampleConverter<T>::sampleToUnsignedByte(samples[channel][i]);
+				addInt16ToFileData(fileData, sampleAsInt);
+			}
+			else if (bitDepth == 24)
+			{
+				int32_t sampleAsIntAgain = (int32_t)(samples[channel][i] * (T)8388608.);
+
+				uint8_t bytes[3];
+				bytes[2] = (uint8_t)(sampleAsIntAgain >> 16) & 0xFF;
+				bytes[1] = (uint8_t)(sampleAsIntAgain >> 8) & 0xFF;
+				bytes[0] = (uint8_t)sampleAsIntAgain & 0xFF;
+
+				fileData.push_back(bytes[0]);
+				fileData.push_back(bytes[1]);
+				fileData.push_back(bytes[2]);
+			}
+			else if (bitDepth == 32)
+			{
+				int32_t sampleAsInt;
+
+				if (audioFormat == WavAudioFormat::IEEEFloat)
+					sampleAsInt = (int32_t) reinterpret_cast<int32_t&> (samples[channel][i]);
+				else // assume PCM
+					sampleAsInt = (int32_t)(samples[channel][i] * std::numeric_limits<int32_t>::max());
+
+				addInt32ToFileData(fileData, sampleAsInt, Endianness::LittleEndian);
+			}
+			else
+			{
+				assert(false && "Trying to write a file with unsupported bit depth");
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
 //=============================================================
 template <class T>
 bool AudioFile<T>::load (const std::string& filePath)

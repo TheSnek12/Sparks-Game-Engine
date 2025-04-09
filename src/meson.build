@@ -32,6 +32,7 @@ engine_srcs = files(
 )
 deps = [
     dependency('glfw3'),
+    dependency('libenet'),
     dependency('openal'),
     dependency('glm'),
     dependency('assimp')

@@ -2,6 +2,9 @@
 #include "src/Audio/AL/ALAudio.h"
 #include "src/Context.h"
 #include "src/ThirdParty/audiofile/AudioFile.h"
+
+
+
 namespace sparks
 {
     
@@ -10,6 +13,7 @@ namespace sparks
     private:
         s_Audio::Speaker speaker;
         AudioFile<double> audiofile;
+        
         
     public:
         AudioSource(/* args */);
