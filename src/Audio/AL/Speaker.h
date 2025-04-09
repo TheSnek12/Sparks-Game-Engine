@@ -15,17 +15,21 @@ namespace s_Audio
 
         void load(ALenum format, ALvoid* data, ALsizei size, ALsizei freq){
 
-            
+            alSourcei(source, AL_BUFFER, 0);
             alBufferData(buffer, format, data, size, freq);
-            if (alGetError() != AL_NO_ERROR)
+            //so the value is viewable in the debugger
+            ALenum e = alGetError();
+            if (e != AL_NO_ERROR)
             {
                 logger::log(logger::LEVEL_ERROR, "Failed to load audio from data!");
             }
+            alSourcei(source, AL_BUFFER, buffer);
         }
         void stop(){
             alSourceStop(source);
         }
-        void play(){
+        void play(Vec3 pos){
+            alSource3f(source, AL_POSITION, pos.x, pos.y, pos.z);
             alSourcePlay(source);
         }
         void pause(){
