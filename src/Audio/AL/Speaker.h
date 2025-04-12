@@ -14,7 +14,7 @@ namespace s_Audio
         uint ID;
 
         void load(ALenum format, ALvoid* data, ALsizei size, ALsizei freq){
-
+            alSourceStop(source);
             alSourcei(source, AL_BUFFER, 0);
             alBufferData(buffer, format, data, size, freq);
             //so the value is viewable in the debugger
@@ -42,6 +42,9 @@ namespace s_Audio
             float offset;
             alGetSourcef(source, AL_SEC_OFFSET, &offset);
             return offset;
+        }
+        void pitch(float pitch){
+            alSourcef(source, AL_PITCH, pitch);
         }
         
         //literally everything here

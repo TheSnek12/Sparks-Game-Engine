@@ -77,7 +77,7 @@ void someGame::onKeyPress(sparks::Keys key){
 
     if (key == sparks::I){
         audio->Load("test/res/sounds/melee_frying_pan_01.wav");
-        cam->volumeGain = 1;
+        cam->volumeGain = 100;
         audio->Play();
     }
 

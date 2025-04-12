@@ -21,6 +21,7 @@ namespace s_Audio
             logger::log(logger::LEVEL_ERROR, "Failed to create buffer!");
             return false;
         }
+        alDistanceModel(AL_INVERSE_DISTANCE_CLAMPED);
         return true;
         
    }
@@ -40,6 +41,8 @@ namespace s_Audio
         return speaker;
    }
    void ALAudio::destroySpeaker(Speaker speaker){
+        alSourceStop(speaker.source);
+        alSourcei(speaker.source, AL_BUFFER, 0);
         used_buffers[speaker.ID] = false;
         alDeleteBuffers(1, &speaker.buffer);
         alDeleteSources(1, &speaker.source);

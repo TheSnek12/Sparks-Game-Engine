@@ -22,6 +22,7 @@ namespace sparks
         void onTick() override;
         void Load(std::string file);
         void Play();
+        void Pitch(float pitch);
         void Pause();
         void Stop();
         void Seek(float timestamp);
