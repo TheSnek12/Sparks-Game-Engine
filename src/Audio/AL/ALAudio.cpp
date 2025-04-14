@@ -38,6 +38,9 @@ namespace s_Audio
         }
         speaker.buffer = buffers[speaker.ID];
         alGenSources(1, &speaker.source);
+
+        alSourcef(speaker.source, AL_REFERENCE_DISTANCE, 10);
+    
         return speaker;
    }
    void ALAudio::destroySpeaker(Speaker speaker){

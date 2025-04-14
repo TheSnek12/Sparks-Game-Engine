@@ -5,6 +5,8 @@
 #include <Scriptables/DirectionalLight.h>
 #include <Scriptables/PointLight.h>
 #include <Camera.h>
+#include <GameHost.h>
+#include <RemoteGame.h>
 #include <math.h>
 
 someGame game = someGame();
@@ -14,12 +16,21 @@ sparks::Transform* script = new sparks::Transform();
 sparks::RenderMesh* objRender = new sparks::RenderMesh("test/res/obj/cube.obj");
 sparks::AudioSource* audio = new sparks::AudioSource();
 
+
+sparks::GameObject* testcube = new sparks::GameObject();
+sparks::Transform* transform = new sparks::Transform();
+sparks::RenderMesh* renderer = new sparks::RenderMesh("test/res/obj/cube.obj");
+
 sparks::GameObject* lightObj = new sparks::GameObject();
 sparks::Transform* lightTransform = new sparks::Transform();
 sparks::DirectionalLight* lightSource = new sparks::DirectionalLight();
 sparks::PointLight* lightSource2 = new sparks::PointLight();
 
+sparks::GameHost host(23001);
+sparks::RemoteGame remote("127.0.0.1", 23000);
+
 sparks::Camera* cam = new sparks::Camera();
+
 
 double xrot = 0;
 double yrot = 0;
@@ -28,6 +39,11 @@ bool aPressed = false;
 bool sPressed = false;
 bool dPressed = false;
 
+float x;
+float y;
+float z;
+
+
 float toRads(float n){
     return n * (M_PI/180);
 }
@@ -35,6 +51,18 @@ float toRads(float n){
 double t = 0;
 void someGame::update()
 {
+    x = cam->getScriptable<sparks::Transform>()->position.x;
+    y = cam->getScriptable<sparks::Transform>()->position.y;
+    z = cam->getScriptable<sparks::Transform>()->position.z;
+    if (remote.getState() == sparks::CONNECTED){
+
+        testcube->getScriptable<sparks::Transform>()->position.x =- x;
+        std::cout << remote.getFloatField("y") << std::endl;
+        testcube->getScriptable<sparks::Transform>()->position.y =- y;
+        testcube->getScriptable<sparks::Transform>()->position.z =- z;
+
+
+    }
     t += 0.01;
     lightObj->getScriptable<sparks::Transform>()->rotation.x = sin(t);
     lightObj->getScriptable<sparks::Transform>()->rotation.z = cos(t);
@@ -77,7 +105,7 @@ void someGame::onKeyPress(sparks::Keys key){
 
     if (key == sparks::I){
         audio->Load("test/res/sounds/melee_frying_pan_01.wav");
-        cam->volumeGain = 100;
+        cam->volumeGain = 200;
         audio->Play();
     }
 
@@ -122,9 +150,10 @@ void someGame::onMouseMove(double x, double y){
 }
 
 
-
 void someGame::init(){
-    
+    host.registerField(sparks::FLOAT, "x", &x);
+    host.registerField(sparks::FLOAT, "y", &y);
+    host.registerField(sparks::FLOAT, "z",  &z);
 
     scene->addObject(lightObj);
     lightObj->addScriptable(lightTransform);
@@ -137,19 +166,26 @@ void someGame::init(){
     obj->addScriptable(script);
     obj->addScriptable(objRender);
     obj->addScriptable(audio);
+
+    scene->addObject(testcube);
+    testcube->addScriptable(transform);
+    testcube->addScriptable(renderer);
     
     scene->addObject(cam);
     scene->activeCamera = cam;
 
 
     obj->getScriptable<sparks::Transform>()->rotation = Vec3(1.0f, 0.0f, 0.0f);
-    obj->getScriptable<sparks::Transform>()->position = Vec3(1.0f, 0.5f, 0.0f);
+    obj->getScriptable<sparks::Transform>()->position = Vec3(5.0f, 0.0f, 0.0f);
     obj->getScriptable<sparks::Transform>()->scale = Vec3(1, 1, 1);
-
     obj->getScriptable<sparks::RenderMesh>()->addTexture("test/res/textures/texture-paint-white-background-gouache-canvas-stripes-98611292.jpg");
 
+    testcube->getScriptable<sparks::Transform>()->position = Vec3(0, 0 ,0);
+    testcube->getScriptable<sparks::Transform>()->rotation = Vec3(0, 0, -1);
+    testcube->getScriptable<sparks::Transform>()->scale = Vec3(0.2, 0.2, 0.2);
+
     cam->getScriptable<sparks::Transform>()->rotation = Vec3(1.0f, 0.0f, 0.0f);
-    cam->getScriptable<sparks::Transform>()->position = Vec3(1.0f, 0.5f, 0.0f);
+    cam->getScriptable<sparks::Transform>()->position = Vec3(0.1f, 0.0f, 0.0f);
 
 
     setName("Sparks Game Engine Test");

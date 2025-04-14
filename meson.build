@@ -16,7 +16,7 @@ install_headers(headers)
 
 subdir('src')
 
-
+add_global_arguments('-Dthing',language: 'c')
 engine = static_library('Sparks-Game-Engine',
            sources: build_srcs,
            install : true,
@@ -25,6 +25,7 @@ engine = static_library('Sparks-Game-Engine',
            
 
            )
+
 
 subdir('test')
 test('build sample project', executable('Sparks-Game-Engine-Test',

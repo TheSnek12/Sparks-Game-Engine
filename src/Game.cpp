@@ -22,6 +22,10 @@ namespace sparks
             logger::log(logger::LEVEL_WARN, "No or invalid geometry set, both width and height must be >0. Using default 200x200");
             setGeometry(200, 200);
         }
+        #ifdef thing
+        logger::log(logger::LEVEL_LOG, "haha")
+        #endif
+
         return true;
     }
 

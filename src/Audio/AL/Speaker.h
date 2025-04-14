@@ -29,7 +29,7 @@ namespace s_Audio
             alSourceStop(source);
         }
         void play(Vec3 pos){
-            alSource3f(source, AL_POSITION, pos.x, pos.y, pos.z);
+            alSource3f(source, AL_POSITION, pos.z, pos.y, pos.x);
             alSourcePlay(source);
         }
         void pause(){

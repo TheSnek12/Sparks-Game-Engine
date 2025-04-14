@@ -15,6 +15,10 @@ renderer_srcs = files(
 audio_srcs = files(
     'Audio/AL/ALAudio.cpp',
 )
+network_srcs = files(
+    'Networking/RemoteGame.cpp',
+    'Networking/GameHost.cpp'
+)
 engine_srcs = files(
     'GWindow.cpp',
     'Scriptables/RenderMesh.cpp',
@@ -38,4 +42,4 @@ deps = [
     dependency('assimp')
 ]
 
-build_srcs = logger_srcs + renderer_srcs + engine_srcs + audio_srcs
+build_srcs = logger_srcs + renderer_srcs + engine_srcs + audio_srcs + network_srcs
